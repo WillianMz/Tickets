@@ -1,5 +1,5 @@
 {
-  "name": "tickets",
+  "name": "manager_tickets",
   "version": "1.0.0",
   "description": "Gerenciamento de mudanças de software e chamados de suporte tecnico",
   "main": "index.js",

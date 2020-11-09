@@ -1,0 +1,15 @@
+<p-toolbar>
+    <p-button type="button" (click)="sidebarVisivel = true" icon="pi pi-bars"></p-button>
+    
+
+</p-toolbar>
+
+<p-sidebar [(visible)]="sidebarVisivel" [baseZIndex]="10000">
+    <h1 style="font-weight: normal;">Manager</h1>
+    <p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu>
+
+    <footer id="rodape">
+        <p>&copy; WILLIAN</p>
+    </footer>
+  
+</p-sidebar>
