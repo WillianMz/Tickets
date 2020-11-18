@@ -1,0 +1,6 @@
+.jumbotron{
+    background-image: url(../../_recursos/fundo.jpg);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
