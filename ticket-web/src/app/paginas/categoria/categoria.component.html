@@ -1,1 +1,42 @@
-<p>categoria works!</p>
+
+<div class="container">
+    <nav aria-label="breadcrumb" >
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href='/home' >Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Categorias</li>        
+        </ol>
+    </nav>
+</div>
+
+<div class="container ">
+      <h1>Categorias</h1>
+      <br>
+
+    <div class="table-responsive">        
+    
+        <table class="table table-bordered  table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Titulo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+               <tr *ngFor = "let categoria of categorias" >
+                   <td>{{categoria.id}}</td>
+                   <td>
+                       <strong>{{categoria.titulo}}</strong>
+                       <br>
+                       <small *ngIf="categoria.descricao">{{categoria.descricao}}</small>
+                   </td>
+                   <td>Editar | Excluir</td>                   
+               </tr>
+            </tbody>
+            
+        </table>
+    </div>
+
+</div>
+

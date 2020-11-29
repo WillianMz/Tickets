@@ -14,9 +14,6 @@ import { UsuarioComponent } from './paginas/usuario/usuario.component';
 import { RegistarUsuarioComponent } from './paginas/registar-usuario/registar-usuario.component';
 import { AtivarUsuarioComponent } from './paginas/ativar-usuario/ativar-usuario.component';
 
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { CategoriaComponent } from './paginas/categoria/categoria.component';
 
 @NgModule({
@@ -36,10 +33,7 @@ import { CategoriaComponent } from './paginas/categoria/categoria.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
