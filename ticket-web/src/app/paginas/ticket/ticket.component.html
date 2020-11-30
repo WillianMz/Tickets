@@ -8,37 +8,50 @@
 
 <div class="container">
     <h2>Tickets</h2>
+    <br>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titulo</th>
-                <th>Descrição</th>
-                <th>Categoria</th>
-                <th>Projeto</th>
-                <th>Projeto</th>
-                <th>Projeto</th>
-                <th>Projeto</th>
-                <th>Projeto</th>
-                <th>Projeto</th>
-            </tr>
-        </thead>
+    <div class="">
 
-        <tbody>
-            <td>Id</td>
-            <td>Tituloasdfasd</td>
-            <td>Descriçãoasdfasdfasdfasdfasdf adsfasdfasdfasdfasd fasdfasdfasdf</td>
-            <td>Categoriasdfasdfasdfasdfasdfa</td>
-            <td>Projetasdfasdfasdfasdfo</td>
-            <td>Projetoasdfasdfasdfasdf</td>
-            <td>Projetoadsfasdfasdfasdf</td>
-            <td>Projetoasdfasdf asdfasdfasdf asdfasdf asdf</td>
-            <td>Projetoasdfasdfasd fasdf asdf </td>
-            <td>Projetoasdfasdfasdf asdfasdfas dfasdfasdf </td>
-        </tbody>
-        
-    </table>
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Titulo</th>
+                    <th>Categoria</th>
+                    <th>Criador</th>
+                    <th>Data de Abertura</th>
+                    <th>Status</th>
+                    <th>Prioridade</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <tr *ngFor = "let ticket of tickets">
+                    <td>{{ticket.Id}}</td>
+                    <td>
+                        <strong>{{ticket.Titulo}}</strong>
+                        <br>
+                        <small *ngIf="ticket.Descricao">{{ticket.Descricao}}</small>
+                    </td>
+                    <td>{{ticket.Categoria}}</td>
+                    <td>{{ticket.Criador}}</td>
+                    <td>{{ticket.DataAbertura}}</td>
+                    <td>{{ticket.Status}}</td>
+                    <td>{{ticket.Prioridade}}</td>
+                    <td>
+                        <button class="btn btn-outline-warning">Editar</button>
+                        <button class="btn btn-outline-danger">Excluir</button>
+                        <button class="btn btn-outline-success">Finalizar</button>
+                        <button class="btn btn-outline-dark">Ver Detalhes</button>
+                    </td>
+                </tr>
+            </tbody>
+            
+        </table>
+
+    </div>
+    
 </div>
 
 <!--
