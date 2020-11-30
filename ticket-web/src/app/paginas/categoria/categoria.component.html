@@ -9,8 +9,8 @@
 </div>
 
 <div class="container ">
-      <h1>Categorias</h1>
-      <br>
+    <h1>Categorias</h1>
+    <br>
 
     <div class="table-responsive">        
     
@@ -19,19 +19,21 @@
                 <tr>
                     <th>Id</th>
                     <th>Titulo</th>
-                    <th>Ações</th>
+                    <th>Opções</th>
                 </tr>
             </thead>
     
             <tbody>
                <tr *ngFor = "let categoria of categorias" >
-                   <td>{{categoria.id}}</td>
+                   <td>{{categoria.Id}}</td>
                    <td>
-                       <strong>{{categoria.titulo}}</strong>
+                       <strong>{{categoria.Titulo}}</strong>
                        <br>
-                       <small *ngIf="categoria.descricao">{{categoria.descricao}}</small>
+                       <small *ngIf="categoria.Descricao">{{categoria.Descricao}}</small>
                    </td>
-                   <td>Editar | Excluir</td>                   
+                   <td>
+                    <button class="btn btn-outline-warning" >Editar</button>    
+                   </td>             
                </tr>
             </tbody>
             

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Categoria } from 'src/app/_modelos/categoria';
+import { CategoriaService } from 'src/app/_servicos/categoria.service';
 
 
 @Component({
@@ -8,12 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriaComponent implements OnInit {
 
-  categorias = [];
-  pagina: Number = 1;
-  cont: Number = 5;
+  categoria = {} as Categoria;
+  categorias: Categoria[];
 
-  constructor() { 
+  constructor(private categoriaService: CategoriaService) { }
 
+  ngOnInit(): void {
+    this.getCategorias();
+  }
+
+  getCategorias(){
+    this.categoriaService.getAll().subscribe((categorias: Categoria[]) => {
+      this.categorias = categorias;
+    });
+  }
+
+  
+    /*
     this.categorias = [
       {'id':1, 'titulo':'Bugs',           'descricao':'Teste de Descrição de Categoria'},
       {'id':2, 'titulo':'Implementação',  'descricao':'Teste de Descrição de Categoria'},
@@ -26,12 +39,7 @@ export class CategoriaComponent implements OnInit {
       {'id':9, 'titulo':'Comercial',      'descricao':'Teste de Descrição de Categoria'},
       {'id':10,'titulo':'Treinamento',    'descricao':'Teste de Descrição de Categoria'}
     ];
-
-  }
-
-  ngOnInit(): void {
-  }
-
+    */
   
 
 }

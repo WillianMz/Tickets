@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+
 import { HomeComponent } from './paginas/home/home.component';
 import { NotFoundComponent } from './paginas/not-found/not-found.component';
 import { FooterComponent } from './navegacao/footer/footer.component';
@@ -33,7 +35,8 @@ import { CategoriaComponent } from './paginas/categoria/categoria.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
