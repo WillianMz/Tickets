@@ -1,32 +1,22 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
-import { Categoria } from '../_modelos/categoria';
-import { Icategoria } from '../_modelos/icategoria';
-import { BaseService } from './base.service';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoriaService{
+export abstract class BaseService {
 
-  constructor(private http: HttpClient) { }
+  api = 'https://localhost:5001/api';
 
-  
- // obterTodos(): Observable<Categoria[]>{
-   // return this.http
-     // .get<Categoria[]>(this.api + '/Categoria/Listar')
-     // .pipe(catchError(super.serviceError));
- // }
-
-  getAll(): Observable<Categoria[]>{
-    return this.http.get<Categoria[]>("https://localhost:5001/api/Categoria/Listar")
-      .pipe(catchError(this.serviceError));
+  protected ObterHeaderJson() {
+    return {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
   }
 
-  listAll(): Observable<Categoria[]>{
-    return this.http.get<Categoria[]>("https://localhost:5001/api/Categoria/Listar");
+  protected extractData(response: any) {
+    return response.dados || {};
   }
 
   protected serviceError(response: Response | any) {
@@ -51,6 +41,5 @@ export class CategoriaService{
     console.error(response);
     return throwError(response);
   }
-
-
 }
+

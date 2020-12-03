@@ -1,16 +1,21 @@
 
 <div class="container">
+ 
+</div>
+
+<div class="container ">
     <nav aria-label="breadcrumb" >
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href='/home' >Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Categorias</li>        
         </ol>
     </nav>
-</div>
-
-<div class="container ">
+    
     <h1>Categorias</h1>
     <br>
+    <strong>{{mensagem}}</strong>
+    <br>
+    <strong>{{sucesso}}</strong>
 
     <div class="table-responsive">        
     
@@ -24,18 +29,29 @@
             </thead>
     
             <tbody>
-               <tr *ngFor = "let categoria of categorias" >
-                   <td>{{categoria.Id}}</td>
-                   <td>
-                       <strong>{{categoria.Titulo}}</strong>
-                       <br>
-                       <small *ngIf="categoria.Descricao">{{categoria.Descricao}}</small>
-                   </td>
-                   <td>
-                    <button class="btn btn-outline-warning" >Editar</button>    
-                   </td>             
-               </tr>
+                <tr *ngFor="let catg of categorias">
+                    <td>{{catg.id}}</td>
+                    <td>
+                        <strong>{{catg.nome}}</strong>
+                        <br>
+                        <!--<small *ngIf="categoria.Descricao">{{categoria.Descricao}}</small>--->
+                    </td>
+                    <td>
+                    <button class="btn btn-outline-warning">Editar</button>    
+                    </td>             
+                </tr>
             </tbody>
+
+            <tfoot *ngIf='!categorias'>
+                <tr>             
+                    <td colspan="7" class="text-center">
+                        <!--<h4>Nenhuma categoria encontrada!</h4>-->
+                        <alert type="info">
+                            <strong>Nada há dados para exibir</strong>
+                        </alert>
+                    </td>
+                </tr>
+            </tfoot>
             
         </table>
     </div>

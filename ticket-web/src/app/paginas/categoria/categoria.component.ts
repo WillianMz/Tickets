@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/_modelos/categoria';
 import { CategoriaService } from 'src/app/_servicos/categoria.service';
 
-
 @Component({
   selector: 'app-categoria',
   templateUrl: './categoria.component.html',
@@ -10,34 +9,40 @@ import { CategoriaService } from 'src/app/_servicos/categoria.service';
 })
 export class CategoriaComponent implements OnInit {
 
-  //categoria = {} as Categoria;
-  //categorias: Categoria[];
-  categorias = [];
+  categorias: Categoria[];
+  mensagem: string;
+  sucesso: boolean;
 
   constructor(private categoriaService: CategoriaService) { }
 
-  ngOnInit(): void {
-    this.getCategorias();
-    this.categorias = [
-      {'Id':1, 'Titulo':'Bugs',           'Descricao':'Teste de Descrição de Categoria'},
-      {'Id':2, 'Titulo':'Implementação',  'Descricao':'Teste de Descrição de Categoria'},
-      {'Id':3, 'Titulo':'Novos recursos', 'Descricao':'Teste de Descrição de Categoria'},
-      {'Id':4, 'Titulo':'Atualização',    'Descricao':'Teste de Descrição de Categoria'},
-      {'Id':5, 'Titulo':'Suporte',        'Descricao':'Teste de Descrição de Categoria'},
-      {'Id':6, 'Titulo':'Desenvolvimento','Descricao':'Teste de Descrição de Categoria'},
-      {'Id':7, 'Titulo':'Estoque',        'Descricao':'Teste de Descrição de Categoria'},
-      {'Id':8, 'Titulo':'Financeiro',     'Descricao':'Teste de Descrição de Categoria'},
-      {'Id':9, 'Titulo':'Comercial',      'Descricao':'Teste de Descrição de Categoria'},
-      {'Id':10,'Titulo':'Treinamento',    'Descricao':'Teste de Descrição de Categoria'}
-    ];
+  ngOnInit(): void {    
+    this.listCategorias();
   }
 
   getCategorias(){
-  //  this.categoriaService.getAll().subscribe((categorias: Categoria[]) => {
-    //  this.categorias = categorias;
-    //});
+    this.categoriaService.listAll().subscribe(
+      (catg: Categoria[]) => {
+        this.categorias = catg;
+        console.log(this.categorias);
+      },
+      error => {
+        console.log('Erro ao carregar categorias' + {error});
+      }
+    )
   }
 
-    
+  listCategorias(){
+    this.categoriaService.listAll().subscribe(
+      (categorias) => {        
+        this.sucesso = categorias['sucesso'];
+        this.mensagem = categorias['mensagem'];        
+        this.categorias = categorias['dados'];
+        //console.log(this.categorias);
+      },
+      erro => {
+        console.log('Erro ao listar categorias. Detalhes: ' + {erro});
+      }
+    );
+  }
 
 }

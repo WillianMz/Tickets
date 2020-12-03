@@ -15,8 +15,10 @@ import { LoginComponent } from './paginas/login/login.component';
 import { UsuarioComponent } from './paginas/usuario/usuario.component';
 import { RegistarUsuarioComponent } from './paginas/registar-usuario/registar-usuario.component';
 import { AtivarUsuarioComponent } from './paginas/ativar-usuario/ativar-usuario.component';
-
 import { CategoriaComponent } from './paginas/categoria/categoria.component';
+
+import { AlertModule } from 'ngx-bootstrap/alert';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { CategoriaComponent } from './paginas/categoria/categoria.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AlertModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
