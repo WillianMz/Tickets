@@ -19,7 +19,7 @@
 
     <div class="table-responsive">        
     
-        <table class="table table-bordered  table-hover">
+        <table class="table table-bordered table-hover table-sm">
             <thead class="thead-dark">
                 <tr>
                     <th>Id</th>
@@ -33,11 +33,10 @@
                     <td>{{catg.id}}</td>
                     <td>
                         <strong>{{catg.nome}}</strong>
-                        <br>
                         <!--<small *ngIf="categoria.Descricao">{{categoria.Descricao}}</small>--->
                     </td>
                     <td>
-                    <button class="btn btn-outline-warning">Editar</button>    
+                        <button class="btn btn-outline-warning">Editar</button>    
                     </td>             
                 </tr>
             </tbody>
@@ -47,7 +46,7 @@
                     <td colspan="7" class="text-center">
                         <!--<h4>Nenhuma categoria encontrada!</h4>-->
                         <alert type="info">
-                            <strong>Nada há dados para exibir</strong>
+                            <strong>Não há dados para exibir</strong>
                         </alert>
                     </td>
                 </tr>
