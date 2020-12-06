@@ -26,7 +26,7 @@ export class CategoriaService{
   }
 
   listAll(): Observable<Categoria[]>{
-    return this.http.get<Categoria[]>("https://localhost:5001/api/Categoria/Listar");
+    return this.http.get<Categoria[]>("http://localhost:5000/api/Categoria/Listar");
   }
 
   protected serviceError(response: Response | any) {
