@@ -4,42 +4,48 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
-import { HomeComponent } from './paginas/home/home.component';
-import { NotFoundComponent } from './paginas/not-found/not-found.component';
 import { FooterComponent } from './navegacao/footer/footer.component';
 import { NavbarComponent } from './navegacao/navbar/navbar.component';
-import { TicketComponent } from './paginas/ticket/ticket.component';
-import { ProjetoComponent } from './paginas/projeto/projeto.component';
-import { LoginComponent } from './paginas/login/login.component';
-import { UsuarioComponent } from './paginas/usuario/usuario.component';
-import { RegistarUsuarioComponent } from './paginas/registar-usuario/registar-usuario.component';
-import { AtivarUsuarioComponent } from './paginas/ativar-usuario/ativar-usuario.component';
-import { CategoriaComponent } from './paginas/categoria/categoria.component';
+import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 
-import { AlertModule } from 'ngx-bootstrap/alert';
+//paginas
+import { HomeComponent } from './paginas/home/home.component';
+import { CategoriaListComponent } from './paginas/categoria/categoria-list/categoria-list.component';
+import { CategoriaFormComponent } from './paginas/categoria/categoria-form/categoria-form.component';
+import { ProjetoListComponent } from './paginas/projeto/projeto-list/projeto-list.component';
+import { ProjetoFormComponent } from './paginas/projeto/projeto-form/projeto-form.component';
+import { TicketListComponent } from './paginas/ticket/ticket-list/ticket-list.component';
+import { TicketFormComponent } from './paginas/ticket/ticket-form/ticket-form.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NotFoundComponent,
     FooterComponent,
     NavbarComponent,
-    TicketComponent,
-    ProjetoComponent,
-    LoginComponent,
-    UsuarioComponent,
-    RegistarUsuarioComponent,
-    AtivarUsuarioComponent,
-    CategoriaComponent
+    NotFoundComponent,
+    CategoriaListComponent,
+    CategoriaFormComponent,
+    ProjetoListComponent,
+    ProjetoFormComponent,
+    TicketListComponent,
+    TicketFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

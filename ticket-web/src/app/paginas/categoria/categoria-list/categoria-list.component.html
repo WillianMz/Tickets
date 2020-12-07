@@ -1,0 +1,75 @@
+<div class="container">
+        
+    <nav class="mb-5">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item active">Categorias</li>
+        </ol>
+    </nav>
+    
+    <div class="row mb-4">
+
+        <div class="col-md">
+            <h1 class="pl-2">Categorias</h1>
+        </div>
+
+        <div class="col-md">
+            <a class="btn btn-success float-right"  (click)="openModal(template)" >+ Nova categoria</a> 
+        </div>
+    </div>
+
+    <div class="table-responsive">           
+        <table class="table table-bordered table-hover table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Titulo</th>
+                    <th>Opções</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let catg of categorias">
+                    <td>{{catg.id}}</td>
+                    <td>
+                        <strong>{{catg.nome}}</strong>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-warning btn-sm" tooltip='Editar' (click)="openModal(template)">Editar</button>    
+                    </td>             
+                </tr>
+            </tbody>
+
+            <tfoot *ngIf='!categorias'>
+                <tr>             
+                    <td colspan="7" class="text-center">
+                        <alert type="info">
+                            <strong>Não há dados para exibir</strong>
+                        </alert>
+                    </td>
+                </tr>
+            </tfoot>
+            
+        </table>
+    </div>
+     
+    <ng-template #template>
+      <div class="modal-header">
+
+        <h4 class="modal-title pull-left">Categoria</h4>
+
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+        This is a modal.
+      </div>
+
+    </ng-template>
+
+    <app-footer></app-footer>
+</div>
+
