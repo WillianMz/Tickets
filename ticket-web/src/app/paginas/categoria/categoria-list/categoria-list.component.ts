@@ -15,6 +15,10 @@ export class CategoriaListComponent implements OnInit {
   sucesso: boolean;
 
   modalRef: BsModalRef;
+  configModal = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  }
 
   constructor(
     private categoriaService: CategoriaService,
@@ -27,7 +31,7 @@ export class CategoriaListComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+    this.modalRef = this.modalService.show(template, this.configModal);
   }
   
   listCategorias(){

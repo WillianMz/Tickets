@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriaFormComponent implements OnInit {
 
+  Titulo = 'Detalhes da Categoria'
+
   constructor() { }
 
   ngOnInit(): void {

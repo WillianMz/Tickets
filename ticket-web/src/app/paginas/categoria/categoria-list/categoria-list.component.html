@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-md">
-            <a class="btn btn-success float-right"  (click)="openModal(template)" >+ Nova categoria</a> 
+            <a routerLink="/categorias/novo" class="btn btn-light float-right" >+ Nova categoria</a> 
         </div>
     </div>
 
@@ -56,18 +56,10 @@
     <ng-template #template>
       <div class="modal-header">
 
-        <h4 class="modal-title pull-left">Categoria</h4>
-
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <app-categoria-form></app-categoria-form>
 
       </div>
-
-      <div class="modal-body">
-        This is a modal.
-      </div>
-
+      
     </ng-template>
 
     <app-footer></app-footer>
