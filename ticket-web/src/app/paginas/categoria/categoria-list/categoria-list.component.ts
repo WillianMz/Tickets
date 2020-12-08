@@ -3,13 +3,18 @@ import { Categoria } from 'src/app/_modelos/categoria';
 import { CategoriaService } from 'src/app/_servicos/categoria.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-categoria-list',
   templateUrl: './categoria-list.component.html',
   styleUrls: ['./categoria-list.component.css']
 })
 export class CategoriaListComponent implements OnInit {
+  
+  Titulo = 'Categoria'
 
+  categoria: Categoria;
   categorias: Categoria[];
   mensagem: string;
   sucesso: boolean;
@@ -20,22 +25,28 @@ export class CategoriaListComponent implements OnInit {
     ignoreBackdropClick: true
   }
 
+
   constructor(
     private categoriaService: CategoriaService,
     private toastr: ToastrService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.listCategorias();
+    this.listarCategorias();
   }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, this.configModal);
   }
+
+  cancelar(): void{
+    this.modalRef.hide();
+  }
   
-  listCategorias(){
-    this.categoriaService.listAll().subscribe(
+  listarCategorias(){
+    this.categoriaService.listarTodas().subscribe(
       (categorias) => {        
         this.sucesso = categorias['sucesso'];
         this.mensagem = categorias['mensagem'];        

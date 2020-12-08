@@ -1,32 +1,45 @@
-<div class="card">
+<div class="container">
 
-  <div class="card-header text-white bg-dark mb-3">
-    {{Titulo}}
-  </div>
+    <div class="card-header text-white bg-dark mb-3">
+        {{Titulo}}
+    </div>
   
-  <div class="card-body">
-          
-    <div class="form-row">
-      <div class="form-group col-md-3">
-           
-        <label for="Id">Id</label>
-        <input type="text" class="form-control" id="Id" formControlName="id" disabled>
-  
-      </div>
-  
-      <div class="form-group col-md-9">
-              
-        <label for="nome">Nome</label>
-        <input type="text" class="form-control" id="nome" formControlName="nome">
+    <form [formGroup]="categoriaForm" (submit)="submitForm()">
+
+        <div class="card">
+            <div class="card-header">
+                Informações sobre a categoria
+            </div>
+
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="name">Id</label>
+                        <input type="text" class="form-control" id="id" formControlName="id">    
+                    </div>
+    
+                    <div class="form-group col-md-8">
+                        <label for="description">Descrição</label>
+                        <input type="text" class="form-control" id="description" formControlName="description">  
+                
+                        <div class="text-danger" *ngIf="categoriaForm.get('name').invalid && categoriaForm.get('name').touched">
+                            <div *ngIf="categoriaForm.get('name').errors.required">Dado obrigatorio</div>
+                            <div *ngIf="categoriaForm.get('name').errors.minlength">Deve ter no minino 2 caracteres</div>
+                        </div>        
             
-      </div>
-    </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    
+        <div class="alert alert-danger mt-4" *ngIf="mensagensDeErro">
+            <strong>Erro no servidor:</strong>
+            <li *ngFor="let error of mensagensDeErro">{{error}}</li>
+        </div>
+    
+        <button [disabled]="habilitaBotaoSalvar || categoriaForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">Salvar</button>
   
-    <div class="btn-group btn-group-sm float-right" role="group" aria-label="Grupo de botões">
-      <button type="menu" class="btn btn-primary" tooltip="teste">Salvar</button>
-      <button type="" class="btn btn-danger">Cancelar</button>
-    </div>
-  
-  </div>  
+    </form>
 
 </div>

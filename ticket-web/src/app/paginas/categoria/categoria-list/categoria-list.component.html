@@ -8,13 +8,12 @@
     </nav>
     
     <div class="row mb-4">
-
         <div class="col-md">
             <h1 class="pl-2">Categorias</h1>
         </div>
 
         <div class="col-md">
-            <a class="btn btn-primary float-right" (click)="openModal(template)" >+ Nova categoria</a> 
+            <a class="btn btn-primary float-right" routerLink="/categorias/novo" >+ Nova categoria</a> 
         </div>
     </div>
 
@@ -53,11 +52,11 @@
         </table>
     </div>
      
-    <ng-template #template>
-      <div class="modal-body">
-          
-        <app-categoria-form></app-categoria-form>
-      </div>
+    <!--MODAL PARA CRIAR NOVA CATEGORIA OU EDITAR EXISTENTE-->
+    <ng-template #template >
+        <div class="modal-body">
+            
+        </div>
     </ng-template>
 
 </div>

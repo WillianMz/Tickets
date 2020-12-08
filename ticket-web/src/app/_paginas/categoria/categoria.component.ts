@@ -20,7 +20,7 @@ export class CategoriaComponent implements OnInit {
   }
 
   getCategorias(){
-    this.categoriaService.listAll().subscribe(
+    this.categoriaService.listarTodas().subscribe(
       (catg: Categoria[]) => {
         this.categorias = catg;
         console.log(this.categorias);
@@ -32,7 +32,7 @@ export class CategoriaComponent implements OnInit {
   }
 
   listCategorias(){
-    this.categoriaService.listAll().subscribe(
+    this.categoriaService.listarTodas().subscribe(
       (categorias) => {        
         this.sucesso = categorias['sucesso'];
         this.mensagem = categorias['mensagem'];        

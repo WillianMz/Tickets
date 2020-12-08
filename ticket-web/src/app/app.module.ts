@@ -8,6 +8,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { FooterComponent } from './navegacao/footer/footer.component';
 import { NavbarComponent } from './navegacao/navbar/navbar.component';
@@ -45,7 +46,9 @@ import { TicketFormComponent } from './paginas/ticket/ticket-form/ticket-form.co
     AlertModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),    
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
