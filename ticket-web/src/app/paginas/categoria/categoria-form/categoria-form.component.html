@@ -4,7 +4,7 @@
         {{Titulo}}
     </div>
   
-    <form [formGroup]="categoriaForm" (submit)="submitForm()">
+    <form [formGroup]="categoriaForm" (submit)="salvar()">
 
         <div class="card">
             <div class="card-header">
@@ -19,13 +19,14 @@
                     </div>
     
                     <div class="form-group col-md-8">
-                        <label for="description">Descrição</label>
-                        <input type="text" class="form-control" id="description" formControlName="description">  
-                
-                        <div class="text-danger" *ngIf="categoriaForm.get('name').invalid && categoriaForm.get('name').touched">
-                            <div *ngIf="categoriaForm.get('name').errors.required">Dado obrigatorio</div>
-                            <div *ngIf="categoriaForm.get('name').errors.minlength">Deve ter no minino 2 caracteres</div>
-                        </div>        
+                        <label for="description">Nome da categoria</label>
+                        <input type="text" class="form-control" id="nome" formControlName="nome">  
+                        
+                        <div class="text-danger" *ngIf="categoriaForm.get('nome').invalid && categoriaForm.get('nome').touched" >
+                            <div *ngIf="categoriaForm.get('nome').errors.required">Informe o nome da categoria</div>
+                            <div *ngIf="categoriaForm.get('nome').errors.minlength">Nome deve ter no mínimo 3 caracteres</div>
+                            <div *ngIf="categoriaForm.get('nome').errors.maxlength">Nome deve ter no máximo 40 caracteres</div>
+                        </div>
             
                     </div>
     
@@ -33,13 +34,10 @@
             </div>
         </div>
     
-        <div class="alert alert-danger mt-4" *ngIf="mensagensDeErro">
-            <strong>Erro no servidor:</strong>
-            <li *ngFor="let error of mensagensDeErro">{{error}}</li>
-        </div>
     
-        <button [disabled]="habilitaBotaoSalvar || categoriaForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">Salvar</button>
+        
   
     </form>
-
+    
+    <button class="btn btn-primary btn-lg" (click)="salvarCategoriaTeste()">Salvar teste</button>
 </div>
