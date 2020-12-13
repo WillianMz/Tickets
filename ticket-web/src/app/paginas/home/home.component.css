@@ -1,0 +1,33 @@
+.icon{
+    float: left;
+    padding: 6px;
+    width: 30%;
+    font-size: 43px;
+    color: #fff;
+}
+
+.card{
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), o 2px ;
+}
+
+.text{
+    float: right;
+    padding: 11px 0;
+    width: 70%;
+    text-align: center;
+    color: #fff;
+}
+
+.card-ticket{
+    background-color: #034d19;
+}
+
+.card-tarefa{
+    background-color: #7215b1;
+}
+
+.card-mensagem{
+    background-color: #3b069c;
+}
