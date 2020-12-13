@@ -34,12 +34,12 @@
                         <strong>{{catg.nome}}</strong>
                     </td>
                     <td>
-                        <button class="btn btn-outline-warning btn-sm" tooltip='Editar' (click)="openModal(template)">Editar</button>    
+                        <button class="btn btn-outline-warning btn-sm" tooltip='Editar'>Editar</button>    
                     </td>             
                 </tr>
             </tbody>
-
-            <tfoot *ngIf='!categorias'>
+            
+            <tfoot *ngIf="categorias.length == 0">
                 <tr>             
                     <td colspan="7" class="text-center">
                         <alert type="info">
@@ -48,6 +48,7 @@
                     </td>
                 </tr>
             </tfoot>
+            
             
         </table>
     </div>
