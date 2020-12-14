@@ -1,43 +1,35 @@
-<div class="container">
-
-    <div class="card-header text-white bg-dark mb-3">
-        {{Titulo}}
+<div class="row">
+    <div class="px-3 py-3 pt-md-3 pb-md-3">
+        <h3>{{tituloDaPagina}}</h3>
     </div>
-  
-    <form [formGroup]="categoriaForm" (submit)="salvar()">
+</div>
 
-        <div class="card">
-            <div class="card-header">
-                Informações sobre a categoria
+<div class="row">
+
+    <div class="col-md-12">
+
+        <form [formGroup]="categoriaForm" (submit)="submitForm()">
+            <div class="alert alert-danger mt-4" *ngIf="msgErroDoServidor">
+                <strong>Atenção:</strong>
+                <ul>
+                    <li *ngFor="let erros of msgErroDoServidor">{{erros}}</li>
+                </ul>
             </div>
 
-            <div class="card-body">
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="name">Id</label>
-                        <input type="text" class="form-control" id="id" formControlName="id">    
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Id</label>
+                        <input type="text" class="form-control" id="id" formControlName="Id" placeholder="Código">
+
+                        <label>Descrição</label>
+                        <input type="text" class="form-control" id="nome" formControlName="nome" placeholder="Nome da categoria">
                     </div>
-    
-                    <div class="form-group col-md-8">
-                        <label for="description">Nome da categoria</label>
-                        <input type="text" class="form-control" id="nome" formControlName="nome">  
-                        
-                        <div class="text-danger" *ngIf="categoriaForm.get('nome').invalid && categoriaForm.get('nome').touched" >
-                            <div *ngIf="categoriaForm.get('nome').errors.required">Informe o nome da categoria</div>
-                            <div *ngIf="categoriaForm.get('nome').errors.minlength">Nome deve ter no mínimo 3 caracteres</div>
-                            <div *ngIf="categoriaForm.get('nome').errors.maxlength">Nome deve ter no máximo 40 caracteres</div>
-                        </div>
-            
-                    </div>
-    
                 </div>
             </div>
-        </div>
-    
-    
-        
-  
-    </form>
-    
-    <button class="btn btn-primary btn-lg" (click)="salvarCategoriaTeste()">Salvar teste</button>
+
+        </form>
+
+    </div>
+
 </div>

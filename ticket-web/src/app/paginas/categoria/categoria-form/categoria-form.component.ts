@@ -1,69 +1,179 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { switchMap } from 'rxjs/operators';
 import { Categoria } from 'src/app/_modelos/categoria';
 import { CategoriaService } from 'src/app/_servicos/categoria.service';
-import { switchMap} from 'rxjs/operators';
-import { SubjectSubscriber } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-categoria-form',
   templateUrl: './categoria-form.component.html',
   styleUrls: ['./categoria-form.component.css']
 })
-export class CategoriaFormComponent implements OnInit {
+export class CategoriaFormComponent implements OnInit, AfterContentChecked {
 
-  Titulo = 'Nova categoria'; 
+  tituloDaPagina: string; 
   categoriaForm: FormGroup;
   acaoAtual: string;//novo/editando
-  mensagensDeErro: string[] = null;
+  msgErroDoServidor: string[] = null;
   habilitaBotaoSalvar: boolean = false;
-  //retorno: string[];
-
   categoria: Categoria = new Categoria();
 
-  mensagens: string[];
+//   mensagens: string[];
   mensagem: string;
   sucesso: boolean;
   dados: string[];
-
+ 
   constructor(    
-    private formBuilder: FormBuilder,
-    private categoriaService: CategoriaService,
-    private toastr: ToastrService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder,
+    private categoriaService: CategoriaService
   ) { }
 
+  ngAfterContentChecked(): void{
+    this.configTituloDaPagina();
+  }
+
   ngOnInit(): void {
+    this.configAcaoAtual();
     this.validarFormulario();
   }
 
-  validarFormulario(){
+  private configTituloDaPagina(){
+    if(this.acaoAtual == 'novo'){
+      this.tituloDaPagina = 'Adicionando nova categoria';
+    }
+    else{
+      const nomeCategoria = this.categoria.nome || '';
+      this.tituloDaPagina = 'Editando categoria ' + nomeCategoria;
+    }
+  }
+
+  private configAcaoAtual(){
+    if(this.route.snapshot.url[0].path === 'novo'){
+      this.acaoAtual = 'novo';
+    }
+    else{
+      this.acaoAtual = 'editar';
+    }
+  }
+
+  private validarFormulario(){
     this.categoriaForm = this.formBuilder.group({
       id: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]]
     });
   }
 
-  salvar(){
+  private carregarCategoria(){
+    if(this.acaoAtual == 'editar'){
+      this.route.paramMap.pipe(switchMap(
+        params => this.categoriaService.filtarPorID(+params.get('id'))
+      )).subscribe(
+        (dados: any) => {
+          console.log(dados);
+          this.categoria = dados['dados'];
+          this.categoriaForm.patchValue(dados['dados']);
+        },
+        (error) => alert('Ocorreu um erro no servidor, tente mais tarde.')
+      );
+    }
+  }
+
+  submitForm(){
+    this.habilitaBotaoSalvar = true;
+
+    if(this.acaoAtual == 'novo'){
+      this.novaCategoria();
+    }
+    else{
+      this.editarCategoria();
+    }
+  }
+
+  private novaCategoria(){
+    
+    const newCategoria: Categoria = Object.assign(new Categoria(), this.categoriaForm.value);
+
+    this.categoriaService.NovaCategoria(newCategoria).subscribe(
+      (retorno) => {
+        this.sucesso = retorno['sucesso'];
+        this.mensagem = retorno['mensagem'];
+        this.dados = retorno['dados'];
+        console.log(this.sucesso + this.mensagem);
+        
+        if(this.sucesso == true){
+          //this.toastr.success('Categoria adicionada com sucesso');
+          return this.sucessoAoSalvar(newCategoria);
+        }
+        else{
+          //this.toastr.warning('Categoria não adicionada. Motivo: ' + this.mensagem);
+          return this.erroAoSalvar(this.mensagem);
+        }
+
+      },
+      erro => {
+        console.log(erro);
+      }
+    )
+  }
+
+  private editarCategoria(){
+    const categoria: Categoria = Object.assign(new Categoria(), this.categoriaForm.value);
+    categoria.id = parseInt(this.route.snapshot.paramMap.get('id'));
+
+    this.categoriaService.Editar(categoria).subscribe(
+      (retorno) => {
+        this.sucesso = retorno['sucesso'];
+        this.mensagem = retorno['mensagem'];
+        this.dados = retorno['dados'];
+        console.log(this.sucesso + ' ' + this.mensagem);
+
+        if(this.sucesso == true){
+          return this.sucessoAoSalvar(categoria);
+        }
+        else{
+          return this.erroAoSalvar(this.mensagem);
+        }
+      },
+      erro => {
+        console.log(erro);
+      }
+    )
+  }
+
+  private sucessoAoSalvar(categoria: Categoria){
+    this.toastr.success('Categoria adicionada com sucesso!','Salvar');
+    this.router.navigate(['/categorias']);
+  }
+
+  private erroAoSalvar(error){
+    this.toastr.error('Ocorreu um erro ao salvar!');
+    this.habilitaBotaoSalvar = false;
+
+    if(error.status == 422){
+      this.msgErroDoServidor = JSON.parse(error._body).errors;      
+    }
+    else{
+      this.msgErroDoServidor = ['Falha na comunicação com o servidor. Por favor, tente mais tarde!'];
+    }
+
+  }
+
+
+/*   salvar(){
     //habilita o botao salvar
     this.habilitaBotaoSalvar = true;
 
     if(this.acaoAtual == 'Novo')
       this.novaCategoria();
     
-  }
+  } */
 
-  private obterAcaoAtual(){
-    //verifica a ação que esta sendo executada
-    if(this.route.snapshot.url[0].path == 'categorias/novo')
-      this.acaoAtual = 'Novo';
-    else
-      this.acaoAtual == 'Editar';
-  }
-
+/* 
   novaCategoria(){
     this.categoriaService.NovaCategoria(this.categoria).subscribe(
       (retorno) => {
@@ -82,11 +192,11 @@ export class CategoriaFormComponent implements OnInit {
         this.toastr.error('Ocorreu um erro: ' + erro, 'Nova categoria');
       }
     )
-  }
+  } */
 
 
 
-  salvarCategoriaTeste(){
+/*   salvarCategoriaTeste(){
     this.categoria.nome = 'ategoria2';
     this.categoriaService.NovaCategoria(this.categoria).subscribe(
       (mensagens) => {
@@ -107,7 +217,7 @@ export class CategoriaFormComponent implements OnInit {
         console.log(erro);
       }
     )
-  }
+  } */
 
     //metodos publicos
 /*   submitForm(){

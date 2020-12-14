@@ -13,6 +13,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FooterComponent } from './navegacao/footer/footer.component';
 import { NavbarComponent } from './navegacao/navbar/navbar.component';
 import { NotFoundComponent } from './navegacao/not-found/not-found.component';
+import { HomeModule } from './paginas/home/home.module';
+import { CategoriaModule } from './paginas/categoria/categoria.module';
+import { TicketModule } from './paginas/ticket/ticket.module';
+import { ProjetoModule } from './paginas/projeto/projeto.module';
+import { UsuarioModule } from './paginas/usuario/usuario.module';
 
 
 @NgModule({
@@ -23,15 +28,23 @@ import { NotFoundComponent } from './navegacao/not-found/not-found.component';
     NotFoundComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
+    BrowserModule,    
     HttpClientModule,
     AlertModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     ModalModule.forRoot(),    
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
+    //carregamento de modulos
+    HomeModule,
+    CategoriaModule,
+    ProjetoModule,
+    TicketModule,
+    UsuarioModule,
+
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
