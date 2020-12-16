@@ -3,6 +3,7 @@ import { Categoria } from 'src/app/_modelos/categoria';
 import { CategoriaService } from 'src/app/_servicos/categoria.service';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-categoria-list',
   templateUrl: './categoria-list.component.html',
@@ -14,6 +15,8 @@ export class CategoriaListComponent implements OnInit {
   categorias: Categoria[];
   mensagem: string;
   sucesso: boolean;  
+  //diz ao componente que inicialize da pagina 1
+  paginaAtual = 1;
 
   constructor(
     private categoriaService: CategoriaService,

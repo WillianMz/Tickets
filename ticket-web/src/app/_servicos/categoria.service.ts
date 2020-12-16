@@ -31,11 +31,17 @@ export class CategoriaService{
     );
   }
 
+  getById(id: Number):any{
+    console.log(id);
+    return this.http.get(this.API + '/ID?id='+id).toPromise();
+  }
+
   filtarPorNome(nome: string): Observable<Categoria[]>{
     return this.http.get<Categoria[]>(`${this.API}/Nome/${nome}`);
   }
 
   filtarPorID(id:number): Observable<Categoria>{
+    console.log(id);
     return this.http.get<Categoria>(`${this.API}/ID/${id}`);
   }
 

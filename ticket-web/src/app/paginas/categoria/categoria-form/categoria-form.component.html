@@ -9,28 +9,31 @@
     <div class="col-md-12">
 
         <form [formGroup]="categoriaForm" (submit)="submitForm()">
-            <div class="alert alert-danger mt-4" *ngIf="msgErroDoServidor">
-                <strong>Atenção:</strong>
-                <ul>
-                    <li *ngFor="let erros of msgErroDoServidor">{{erros}}</li>
-                </ul>
-            </div>
-
+            
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Id</label>
-                        <input type="text" class="form-control" id="id" formControlName="id" placeholder="Código">
+                        <!-- <label>Id</label>
+                        <input type="text" class="form-control" id="id" formControlName="id" placeholder="Código"> -->
 
                         <label>Descrição</label>
                         <input type="text" class="form-control" id="nome" formControlName="nome" placeholder="Nome da categoria">
                         <div class="text-danger" *ngIf="categoriaForm.get('nome').invalid && categoriaForm.get('nome').touched">
-                            <div *ngIf="categoriaForm.get('nome').errors.required">Dado obrigatório</div>
+                            <div *ngIf="categoriaForm.get('nome').errors.required">Nome da categoria é obrigatório</div>
                             <div *ngIf="categoriaForm.get('nome').errors.minlenght">Nome deve ter mais que 3 caracteres</div>
                             <div *ngIf="categoriaForm.get('nome').errors.maxlength">Nome pode ter mais que 40 caracteres</div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg mt-3" [disabled]="habilitaBotaoSalvar || categoriaForm.invalid" type="submit" >Salvar</button>
+
+            <div class="alert alert-danger mt-4" *ngIf="msgErroDoServidor">
+                <strong>Atenção:</strong>
+                <ul>
+                    <li *ngFor="let erros of msgErroDoServidor">{{erros}}</li>
+                </ul>
             </div>
 
         </form>

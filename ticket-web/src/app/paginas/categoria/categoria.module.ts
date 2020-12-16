@@ -6,6 +6,7 @@ import { CategoriaListComponent } from './categoria-list/categoria-list.componen
 import { CategoriaFormComponent } from './categoria-form/categoria-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     CategoriaRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ]
 })
 export class CategoriaModule { }

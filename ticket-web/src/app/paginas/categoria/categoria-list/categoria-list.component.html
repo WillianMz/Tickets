@@ -1,68 +1,3 @@
-<!-- <div class="container">
-        
-    <nav class="mb-5">
-        <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
-        <li class="breadcrumb-item active">Categorias</li>
-        </ol>
-    </nav>
-    
-    <div class="row mb-4">
-        <div class="col-md">
-            <h1 class="pl-2">Categorias</h1>
-        </div>
-
-        <div class="col-md">
-            <a class="btn btn-primary float-right" routerLink="/categorias/novo" >+ Nova categoria</a> 
-        </div>
-    </div>
-
-    <div class="table-responsive">           
-        <table class="table table-bordered table-hover table-sm">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Id</th>
-                    <th>Titulo</th>
-                    <th>Opções</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr *ngFor="let catg of categorias">
-                    <td>{{catg.id}}</td>
-                    <td>
-                        <strong>{{catg.nome}}</strong>
-                    </td>
-                    <td>
-                        <button class="btn btn-outline-warning btn-sm" tooltip='Editar'>Editar</button>    
-                    </td>             
-                </tr>
-            </tbody>
-            
-            <tfoot *ngIf="categorias.length == 0">
-                <tr>             
-                    <td colspan="7" class="text-center">
-                        <alert type="info">
-                            <strong>Não há dados para exibir</strong>
-                        </alert>
-                    </td>
-                </tr>
-            </tfoot>
-            
-            
-        </table>
-    </div>
-     
-    <ng-template #template >
-        <div class="modal-body">
-            
-        </div>
-    </ng-template>
-
-</div>
-
-<app-footer></app-footer>
- -->
 
 <div class="row">
     <div class="px-3 py-3 pt-md-3 pb-md-3">
@@ -70,12 +5,14 @@
     </div>
 </div>
 
+
 <div class="row">
 
     <div class="col-md-12">
 
         <p>
             <a class="btn btn-outline-success" routerLink='novo'><i class="fa fa-plus-square"></i> Adicionar</a>
+
         </p>
 
         <div class="table-responsive" *ngIf="categorias?.length">
@@ -87,7 +24,7 @@
                 </thead>
 
                 <tbody>
-                    <tr *ngFor="let catg of categorias">
+                    <tr *ngFor="let catg of categorias  | paginate: { itemsPerPage: 6, currentPage: paginaAtual }; let i = index"a>
                         <td>{{catg.id}}</td>
                         <td><strong>{{catg.nome}}</strong></td>
                         <td>
@@ -96,8 +33,12 @@
                             </button>
                         </td>             
                     </tr>
-                </tbody>
+                </tbody>             
             </table>
+        </div>
+
+        <div class="text-right">
+            <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
         </div>
 
         <div class="alert alert-warning" role="alert" *ngIf="!categorias?.length">

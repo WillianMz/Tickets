@@ -40,6 +40,7 @@ export class CategoriaFormComponent implements OnInit, AfterContentChecked {
   ngOnInit(): void {
     this.configAcaoAtual();
     this.validarFormulario();
+    this.carregarCategoria();
   }
 
   private configTituloDaPagina(){
@@ -71,7 +72,7 @@ export class CategoriaFormComponent implements OnInit, AfterContentChecked {
   private carregarCategoria(){
     if(this.acaoAtual == 'editar'){
       this.route.paramMap.pipe(switchMap(
-        params => this.categoriaService.filtarPorID(+params.get('id'))
+        params => this.categoriaService.getById(+params.get('id'))
       )).subscribe(
         (dados: any) => {
           console.log(dados);
