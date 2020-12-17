@@ -10,24 +10,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { FooterComponent } from './navegacao/footer/footer.component';
-import { NavbarComponent } from './navegacao/navbar/navbar.component';
-import { NotFoundComponent } from './navegacao/not-found/not-found.component';
 import { HomeModule } from './paginas/home/home.module';
 import { CategoriaModule } from './paginas/categoria/categoria.module';
 import { TicketModule } from './paginas/ticket/ticket.module';
 import { ProjetoModule } from './paginas/projeto/projeto.module';
 import { UsuarioModule } from './paginas/usuario/usuario.module';
+import { CommonModule } from '@angular/common';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FooterComponent,
-    NavbarComponent,
-    NotFoundComponent
+    AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,    
     HttpClientModule,
     AlertModule.forRoot(),
@@ -38,6 +35,7 @@ import { UsuarioModule } from './paginas/usuario/usuario.module';
     FormsModule,
 
     //carregamento de modulos
+    SharedModule,
     HomeModule,
     CategoriaModule,
     ProjetoModule,

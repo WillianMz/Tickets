@@ -1,50 +1,56 @@
-
-<div class="row">
-    <div class="px-3 py-3 pt-md-3 pb-md-3">
-        <h3>Categorias</h3>
-    </div>
-</div>
-
-
-<div class="row">
-
-    <div class="col-md-12">
-
-        <p>
-            <a class="btn btn-outline-success" routerLink='novo'><i class="fa fa-plus-square"></i> Adicionar</a>
-
-        </p>
-
-        <div class="table-responsive" *ngIf="categorias?.length">
-            <table class="table table-hover table-bordered table-sm">
-                <thead class="thead-light">
-                    <th>Id</th>
-                    <th>Descrição</th>
-                    <th></th>
-                </thead>
-
-                <tbody>
-                    <tr *ngFor="let catg of categorias  | paginate: { itemsPerPage: 6, currentPage: paginaAtual }; let i = index"a>
-                        <td>{{catg.id}}</td>
-                        <td><strong>{{catg.nome}}</strong></td>
-                        <td>
-                            <button class="btn text-primary" [routerLink]="[catg.id, 'editar']">
-                                <i class="fa fa-edit fa-lg"></i>
-                            </button>
-                        </td>             
-                    </tr>
-                </tbody>             
-            </table>
+<app-navbar>    </app-navbar>
+<div class="container">
+    
+    <div class="row">
+        <div class="px-3 py-3 pt-md-3 pb-md-3">
+            <h3>Categorias</h3>
         </div>
-
-        <div class="text-right">
-            <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-        </div>
-
-        <div class="alert alert-warning" role="alert" *ngIf="!categorias?.length">
-            <strong>Atenção!</strong> Nenhuma categoria encontrada.
-        </div>
-
     </div>
 
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <p>
+                <a class="btn btn-outline-success" routerLink='novo'><i class="fa fa-plus-square"></i> Adicionar</a>
+
+            </p>
+
+            <div class="table-responsive" *ngIf="categorias?.length">
+                <table class="table table-hover table-bordered table-sm">
+                    <thead class="thead-light">
+                        <th>Id</th>
+                        <th>Descrição</th>
+                        <th></th>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let catg of categorias  | paginate: { itemsPerPage: [itensPorPagina], currentPage: paginaAtual }; let i = index"a>
+                            <td>{{catg.id}}</td>
+                            <td><strong>{{catg.nome}}</strong></td>
+                            <td>
+                                <button class="btn text-primary" [routerLink]="[catg.id, 'editar']">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="btn text-danger" [disabled]="true">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>             
+                        </tr>
+                    </tbody>             
+                </table>
+            </div>
+
+            <!-- paginacao -->
+            <div class="text-right">
+                <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+            </div>
+
+            <div class="alert alert-warning" role="alert" *ngIf="!categorias?.length">
+                <strong>Atenção!</strong> Nenhuma categoria encontrada.
+            </div>
+
+        </div>
+
+    </div>
 </div>

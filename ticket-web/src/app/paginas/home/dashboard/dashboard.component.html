@@ -1,52 +1,60 @@
-<div class="row">
-    <div class="px-3 py-3 pt-md-3 pb-md-3">
-        <h3>Dashboard</h3>
+<app-navbar></app-navbar>
+
+<div class="container">
+
+    <div class="row">
+        <div class="px-3 py-3 pt-md-3 pb-md-3">
+            <h3>Dashboard</h3>
+        </div>
     </div>
+    
+    <div class="row justify-content-center">
+    
+        <div class="col-md-4">
+            <div class="card card-ticket">
+                <div class="card-body">
+                    <div class="icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="text">
+                        <h4>Tickets abertos</h4><br>
+                        Ótimo, nenhum ticket aberto!
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-4">
+            <div class="card card-tarefa">
+                <div class="card-body">
+                    <div class="icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="text">
+                        <h4>Tarefas</h4><br>
+                        Nenhuma tarefa encontrada!
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-4">
+            <div class="card card-mensagem">
+                <div class="card-body">
+                    <div class="icon">
+                        <i class="far fa-comment-alt"></i>
+                    </div>
+                    <div class="text">
+                        <h4>Ultimas Mensagens</h4><br>
+                        Nada a exibir
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+    </div>
+
 </div>
 
-<div class="row justify-content-center">
-
-    <div class="col-md-4">
-        <div class="card card-ticket">
-            <div class="card-body">
-                <div class="icon">
-                    <i class="fas fa-clipboard-list"></i>
-                </div>
-                <div class="text">
-                    <h4>Tickets abertos</h4><br>
-                    Ótimo, nenhum ticket aberto!
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="card card-tarefa">
-            <div class="card-body">
-                <div class="icon">
-                    <i class="fas fa-clipboard-check"></i>
-                </div>
-                <div class="text">
-                    <h4>Tarefas</h4><br>
-                    Nenhuma tarefa encontrada!
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="card card-mensagem">
-            <div class="card-body">
-                <div class="icon">
-                    <i class="far fa-comment-alt"></i>
-                </div>
-                <div class="text">
-                    <h4>Ultimas Mensagens</h4><br>
-                    Nada a exibir
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</div>
+<app-footer></app-footer>

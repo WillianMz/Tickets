@@ -7,6 +7,7 @@ import { CategoriaFormComponent } from './categoria-form/categoria-form.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,11 +15,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CategoriaFormComponent
   ],
   imports: [
-    CommonModule,
-    CategoriaRoutingModule,
+    CommonModule,    
     ReactiveFormsModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CategoriaRoutingModule,
+    SharedModule
   ]
 })
 export class CategoriaModule { }
