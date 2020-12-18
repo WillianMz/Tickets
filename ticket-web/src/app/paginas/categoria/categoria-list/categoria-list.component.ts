@@ -17,7 +17,7 @@ export class CategoriaListComponent implements OnInit {
   sucesso: boolean;  
   //diz ao componente que inicialize da pagina 1
   paginaAtual = 1;
-  itensPorPagina = 10;
+  itensPorPagina = 8;
 
   constructor(
     private categoriaService: CategoriaService,

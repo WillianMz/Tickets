@@ -40,11 +40,6 @@ export class CategoriaService{
     return this.http.get<Categoria[]>(`${this.API}/Nome/${nome}`);
   }
 
-  filtarPorID(id:number): Observable<Categoria>{
-    console.log(id);
-    return this.http.get<Categoria>(`${this.API}/ID/${id}`);
-  }
-
   Adicionar(categoria: Categoria){
     return this.http.post(this.API + '/Adicionar', categoria);
   }

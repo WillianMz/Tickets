@@ -1,4 +1,4 @@
-<app-navbar>    </app-navbar>
+<app-navbar></app-navbar>
 <div class="container">
     
     <div class="row">
@@ -39,12 +39,18 @@
                         </tr>
                     </tbody>             
                 </table>
+
+                <!-- paginacao -->
+                <div class="text-right">
+                    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                </div>
+                
             </div>
 
             <!-- paginacao -->
-            <div class="text-right">
+           <!--  <div class="text-right">
                 <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-            </div>
+            </div> -->
 
             <div class="alert alert-warning" role="alert" *ngIf="!categorias?.length">
                 <strong>Atenção!</strong> Nenhuma categoria encontrada.
