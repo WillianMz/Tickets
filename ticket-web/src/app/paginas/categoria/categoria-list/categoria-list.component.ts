@@ -30,23 +30,24 @@ export class CategoriaListComponent implements OnInit {
 
   
   listarCategorias(){
-    this.categoriaService.listarTodas().subscribe(
+/*     this.categoriaService.listarTodas().subscribe(
       (categorias) => {        
         this.sucesso = categorias['sucesso'];
         this.mensagem = categorias['mensagem'];        
-        this.categorias = categorias['dados'];
-        this.toastr.success('Ok','Categorias');   
+        this.categorias = categorias['dados'];  
       },
       erro => {
-       /*  if(this.categorias == null){
-          this.toastr.warning('Erro ao listar categorias. Sem conexão com o servidor.','Categorias');
-        } */
         this.toastr.error(erro);
       }
+    ); */
 
-      
+    this.categoriaService.obterCategorias().subscribe(
+      (categorias) => {
+        this.categorias = categorias;
+        console.log(categorias);
+      }
+    )
 
-    );
   }
 
 }
