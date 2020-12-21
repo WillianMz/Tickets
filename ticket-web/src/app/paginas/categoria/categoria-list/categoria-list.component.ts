@@ -43,8 +43,12 @@ export class CategoriaListComponent implements OnInit {
 
     this.categoriaService.obterCategorias().subscribe(
       (categorias) => {
-        this.categorias = categorias;
+        this.categorias = categorias['dados'];
+        this.sucesso = categorias['sucesso'];
+        this.mensagem = categorias['mensagem'];
         console.log(categorias);
+        console.log(this.mensagem);
+        console.log(this.sucesso);
       }
     )
 

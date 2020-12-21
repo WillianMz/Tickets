@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs/operators';
 import { Categoria } from 'src/app/_modelos/categoria';
+import { RetornoAPI } from 'src/app/_modelos/retornoAPI';
 import { CategoriaService } from 'src/app/_servicos/categoria.service';
 
 @Component({
@@ -16,17 +17,12 @@ export class CategoriaFormComponent implements OnInit, AfterContentChecked {
   tituloDaPagina: string; 
   categoriaForm: FormGroup;
   acaoAtual: string;//novo/editando
-  msgErroDoServidor: string[] = null;
+  msgErroDoServidor: RetornoAPI[];
   habilitaBotaoSalvar: boolean = false;
   categoria: Categoria = new Categoria();
-
-  erros: any[] = [];
-
-//   mensagens: string[];
   mensagem: string;
   sucesso: boolean;
   dados: any[];
-  mensagens: string[];
  
   constructor(    
     private route: ActivatedRoute,
@@ -98,39 +94,25 @@ export class CategoriaFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
-  private novaCategoria(){
-    
+  private novaCategoria(){    
     const newCategoria: Categoria = Object.assign(new Categoria(), this.categoriaForm.value);
-    newCategoria.nome = "";
 
-/*     this.categoriaService.createCategoria(newCategoria).subscribe(
-      sucesso => {this.processarSucesso(sucesso)},
-      falha => {this.processarFalha(falha)}
-    ) */
+    this.categoriaService.createCategoria(newCategoria).subscribe(
+      (result) => {
+        this.sucesso = result['sucesso'];
+        this.mensagem = result['mensagem'];
+        this.msgErroDoServidor = result['dados'];
+        console.log(this.sucesso);
+        console.log(this.mensagem);
+        console.log(this.msgErroDoServidor);
 
-    this.categoriaService.NovaCategoria(newCategoria).subscribe(
-      (retorno) => {
-        this.sucesso = retorno['sucesso'];
-        this.mensagem = retorno['mensagem'];
-        this.dados = retorno['dados']
-        this.mensagens = this.dados;
-
-        console.log(this.dados);
-        console.log(this.sucesso + ' '+ this.mensagem + ' ' + this.mensagens);
-        
         if(this.sucesso == true){
-          //this.toastr.success('Categoria adicionada com sucesso');
-          return this.sucessoAoSalvar(newCategoria);
+          this.processarSucesso();
         }
-        else{
-          this.toastr.warning('Categoria não adicionada. Motivo: ' + this.mensagem);
-          //return this.erroAoSalvar(this.mensagem);
-        }
-
       },
-      erro => {
-        console.log(erro);
-      } 
+      (error) =>{
+        this.processarFalha(error);
+      }
     )
   }
 
@@ -138,56 +120,35 @@ export class CategoriaFormComponent implements OnInit, AfterContentChecked {
     const categoria: Categoria = Object.assign(new Categoria(), this.categoriaForm.value);
     categoria.id = parseInt(this.route.snapshot.paramMap.get('id'));
 
-    this.categoriaService.Editar(categoria).subscribe(
-      (retorno) => {
-        this.sucesso = retorno['sucesso'];
-        this.mensagem = retorno['mensagem'];
-        this.dados = retorno['dados'];
-        
-        //console.log(retorno["dados{'message'}"]);
+    this.categoriaService.updateCategoria(categoria).subscribe(
+      (result) => {
+        this.sucesso = result['sucesso'];
+        this.mensagem = result['mensagem'];
+        this.msgErroDoServidor = result['dados'];
+        console.log(this.sucesso);
+        console.log(this.mensagem);
+        console.log(this.msgErroDoServidor);
 
         if(this.sucesso == true){
-          //return this.sucessoAoSalvar(categoria);
-          return this.toastr.success(this.mensagem);
-        }
-        else{
-          //return this.erroAoSalvar(this.mensagem);
-          return this.toastr.error(this.mensagem + ' ' + this.mensagens);
+          this.processarSucesso();
         }
       },
-      erro => {
-        console.log(erro);
+      (error) =>{
+        this.processarFalha(error);
       }
     )
   }
 
-  private sucessoAoSalvar(categoria: Categoria){
-    this.toastr.success('Categoria adicionada com sucesso!','Salvar');
-    this.router.navigate(['/categorias']);
-  }
-
-  private erroAoSalvar(error){
-    this.toastr.error('Ocorreu um erro ao salvar!');
-    this.habilitaBotaoSalvar = false;
-
-    if(error.status == 422){
-      this.msgErroDoServidor = JSON.parse(error._body).errors;      
-    }
-    else{
-      this.msgErroDoServidor = ['Falha na comunicação com o servidor. Por favor, tente mais tarde!'];
-    }
-
-  }
-
-
-  processarSucesso(response: any){
+  processarSucesso(){
+    this.toastr.success('Dados salvos com sucesso!','Salvar');
     this.categoriaForm.reset();
-    this.erros = [];
+    this.msgErroDoServidor = [];    
     this.router.navigate(['/categorias']);
   }
 
   processarFalha(falha: any){
-    this.erros = falha.error.errors;
+    //this.msgErroDoServidor = falha.error.errors;
+    this.habilitaBotaoSalvar = false;
   }
 
 }

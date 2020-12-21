@@ -36,12 +36,25 @@
                     <button class="btn btn-danger btn-lg mt-3" routerLink="/categorias">Cancelar</button>
                 </div>
     
-                <div class="alert alert-danger mt-4" *ngIf="msgErroDoServidor">
+                <div class="alert alert-danger mt-4" *ngIf="[sucesso]=='false'">
                     <strong>Atenção:</strong>
                     <ul>
-                        <li *ngFor="let erros of msgErroDoServidor">{{erros}}</li>
+                        <li>{{mensagem}}</li>
                     </ul>
                 </div>
+
+                <!-- <div class="alert alert-success mt-4" *ngIf="[sucesso]=='true'">
+                    <strong>{{mensagem}}</strong>
+                </div> -->
+
+                <div class="alert alert-danger mt-4" *ngIf="msgErroDoServidor?.length">
+                    <strong>{{mensagem}}</strong>
+                    <ul>
+                        <li *ngFor="let erros of msgErroDoServidor">
+                            <strong>{{erros.property}}: </strong>{{erros.message}}
+                        </li>
+                    </ul>
+                </div>                
     
             </form>
     

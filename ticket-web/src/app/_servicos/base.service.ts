@@ -18,7 +18,7 @@ export abstract class BaseService {
   }
 
   protected extractDados(response: any){
-    return response.dados || {};
+    return response || {};
   }
 
   protected serviceError(response: Response | any){
