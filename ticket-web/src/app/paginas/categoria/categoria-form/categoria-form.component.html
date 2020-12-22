@@ -37,18 +37,11 @@
                 </div>
     
                 <div class="alert alert-danger mt-4" *ngIf="[sucesso]=='false'">
-                    <strong>Atenção:</strong>
-                    <ul>
-                        <li>{{mensagem}}</li>
-                    </ul>
+                    <strong>{{mensagem}}</strong>
                 </div>
 
-                <!-- <div class="alert alert-success mt-4" *ngIf="[sucesso]=='true'">
-                    <strong>{{mensagem}}</strong>
-                </div> -->
-
                 <div class="alert alert-danger mt-4" *ngIf="msgErroDoServidor?.length">
-                    <strong>{{mensagem}}</strong>
+                    <strong>Atenção:</strong>
                     <ul>
                         <li *ngFor="let erros of msgErroDoServidor">
                             <strong>{{erros.property}}: </strong>{{erros.message}}

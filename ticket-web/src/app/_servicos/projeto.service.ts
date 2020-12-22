@@ -1,29 +1,52 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Projeto } from '../_modelos/projeto';
-
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type':'applicaiton/json'})
-};
-
+import { BaseService } from './base.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProjetoService {
+export class ProjetoService extends BaseService{
 
-  API = 'https://localhost:5001/api/Projetos';
-  projeto: Projeto = new Projeto();
+  //projeto: Projeto = new Projeto();
 
-  constructor(private http: HttpClient) { }
-
-  listar(): Observable<Projeto[]>{
-    return this.http.get<Projeto[]>(this.API + '/Listar');
+  constructor(private http: HttpClient) {
+    super();    
   }
 
-  Editar(projeto: Projeto){
-    return this.
+  obterProjetos(): Observable<Projeto[]>{
+    return this.http.get<Projeto[]>(this.urlAPIv1 + 'Projetos/Listar').pipe(
+      map(this.extractDados),
+      catchError(this.serviceError)
+    );
   }
+
+  createProjeto(projeto: Projeto): Observable<Projeto>{
+    let response = this.http.post(this.urlAPIv1 + 'Projetos/Adicionar', projeto, this.ObterHeaderJson()).pipe(
+      map(this.extractDados),
+      catchError(this.serviceError)
+    );
+
+    return response;
+  }
+
+  updateProjeto(projeto: Projeto): Observable<Projeto>{
+    let response = this.http.put(this.urlAPIv1 + 'Projetos/Adicionar', projeto, this.ObterHeaderJson()).pipe(
+      map(this.extractDados),
+      catchError(this.serviceError)
+    );
+
+    return response;
+  }
+
+  getById(id: number): Observable<Projeto>{
+    return this.http.get<Projeto[]>(this.urlAPIv1 + 'Projetos/ID?id='+id, this.ObterHeaderJson()).pipe(
+      map(this.extractDados),
+      catchError(this.serviceError)
+    );
+  }
+
 }

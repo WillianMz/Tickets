@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class CategoriaService extends BaseService{
 
-  categoria: Categoria = new Categoria();
+  //categoria: Categoria = new Categoria();
 
   constructor(private http: HttpClient) { super(); }
 
@@ -41,11 +41,6 @@ export class CategoriaService extends BaseService{
     return response;
   }
   
-
-  Editar(categoria: Categoria){
-    return this.http.put(this.urlAPIv1 + 'Categoria/Editar', categoria);
-  }
-  
   getById(id: Number):any{
     console.log(id);
     return this.http.get(this.urlAPIv1 + 'Categoria/ID?id='+id).toPromise();
@@ -53,23 +48,6 @@ export class CategoriaService extends BaseService{
 
   filtarPorNome(nome: string): Observable<Categoria[]>{
     return this.http.get<Categoria[]>(`${this.urlAPIv1}Categoria/Nome/${nome}`);
-  }
-
-  Adicionar(categoria: Categoria){
-    return this.http.post(this.urlAPIv1 + 'Categoria/Adicionar', categoria);
-  }
-
-
-  
-
-
-
-  //interceptar erros caso ocorra
-  private handleError<T>(operation = 'operation', result?: T){
-    return (error:any): Observable<T> => {
-      console.log(error);
-      return of(result as T);
-    }
   }
 
 }

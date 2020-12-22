@@ -1,1 +1,193 @@
-<p>projeto-form works!</p>
+<div class="container">
+
+    <div class="row">
+        <div class="px-3 py-3 pt-md-3 pb-md-3">
+            <h3>{{titulo}}</h3>
+        </div>
+    </div>
+
+    <!-- DIV DO FORM -->
+    <div>
+
+        <form [formGroup]="projetoForm" (submit)="submitForm()">
+
+            <!-- CABEÇALHO DO FORMULARIO -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        
+                        <label>Nome</label>
+                        <input type="text" class="form-control" id="nome" formControlName="nome" placeholder="Nome do projeto">
+                        
+                        <div class="text-danger" *ngIf="projetoForm.get('nome').invalid && projetoForm.get('nome').touched">
+                            <div *ngIf="projetoForm.get('nome').errors.required">Nome do projeto é obrigatório</div>
+                            <div *ngIf="projetoForm.get('nome').errors.minlenght">Nome deve ter mais que 3 caracteres</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group">
+
+                        <label>Descrição</label>
+                        <input type="text" class="form-control" id="descricao" formControlName="descricao" placeholder="Descrição do projeto">
+                        
+                        <div class="text-danger" *ngIf="projetoForm.get('descricao').invalid && projetoForm.get('descricao').touched">
+                            <div *ngIf="projetoForm.get('descricao').errors.required">Informe uma descrição para o projeto</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+
+                <!-- TABS -->
+                <tabset>
+
+                    <!-- TAB Releases -->
+                    <tab heading="Releases">
+
+                        <div class="container">
+                            <br>
+                            <h3>Releases</h3>
+                            <div>
+                                <button class="btn btn-success btn-sm mt-3">Nova release</button>
+                            </div>
+                            <br>
+                        
+                            <div class="table-responsive" >
+                                <table class="table table-hover table-bordered table-sm">
+                                    <thead class="thead-light">
+                                        <th>Id</th>
+                                        <th>Descrição</th>
+                                        <th>Versão</th>
+                                        <th>Usuário</th>
+                                        <th>Data de criação</th>
+                                        <th>Data de Liberação</th>
+                                        <th></th>
+                                    </thead>
+                
+                                    <tbody *ngIf="releases?.length">
+                                        <tr *ngFor="let rel of releases |  paginate: { itemsPerPage: [itensPorPagina], currentPage: paginaAtual }; let i = index">
+                                            <td>{{rel.id}}</td>
+                                            <td>{{rel.descricao}}</td>
+                                            <td>{{rel.versao}}</td>
+                                            <td>{{rel.usuario}}</td>
+                                            <td>{{rel.dataCriacao}}</td>
+                                            <td>{{rel.dataLiberacao}}</td>
+                                            <td>
+                                                <button class="btn text-primary" [routerLink]="[rel.id, 'editar']">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+                                            </td>
+                                            
+                                        </tr>                                        
+                                    </tbody> 
+                                </table>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert" *ngIf="!releases?.length">
+                                Não existem releases para este projeto!
+                            </div>
+
+                        </div>
+
+                    </tab>
+
+                    <!-- TAB Documentos -->
+                    <tab heading="Documentos">
+                        <div class="container">
+                            <br>
+                            <h3>Documentos</h3>
+                            <div>
+                                <button class="btn btn-success btn-sm mt-3">Novo documento</button>
+                            </div>
+                            <br>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered table-sm">
+                                    <thead class="thead-light">
+                                        <th>Id</th>
+                                        <th>Titulo</th>
+                                        <th></th>
+                                    </thead>
+                
+                                    <tbody *ngIf="documentos?.length">
+                                        <tr *ngFor="let doc of documentos |  paginate: { itemsPerPage: [itensPorPagina], currentPage: paginaAtual }; let i = index">
+                                            <td>{{doc.id}}</td>
+                                            <td>{{doc.titulo}}</td>
+                                            <td>
+                                                <button class="btn text-primary" [routerLink]="[doc.id, 'editar']">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>             
+                                </table>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert" *ngIf="!documentos?.length">
+                                Não existem documentos para este projeto!
+                            </div>
+
+                        </div>
+                    </tab>
+
+                    <!-- TAB Equipe -->
+                    <tab heading="Equipe">
+                        <div class="container">
+                            <br>
+                            <h3>Equipe</h3>
+                            <div>
+                                <button class="btn btn-success btn-sm mt-3">Novo membro de equipe</button>
+                            </div>
+                            <br>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered table-sm">
+                                    <thead class="thead-light">
+                                        <th>Nome</th>
+                                        <th>Gerente</th>
+                                    </thead>
+                
+                                    <tbody *ngIf="equipes?.length">
+                                        <tr *ngFor="let eq of equipes |  paginate: { itemsPerPage: [itensPorPagina], currentPage: paginaAtual }; let i = index">
+                                            <td>{{eq.nomeUsuario}}</td>
+                                            <td>{{eq.gerente}}</td>
+                                        </tr>
+                                    </tbody>             
+                                </table>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert" *ngIf="!equipes?.length">
+                                Não há membros de equipe para este projeto!
+                            </div>
+
+                        </div>
+                    </tab>
+
+                </tabset>
+
+            </div>
+
+            <!-- GRUPO DE BOTOES (SALVAR/CANCELAR) -->
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg mt-3" type="submit" >Salvar</button>
+                <button class="btn btn-danger btn-lg mt-3" routerLink="/projetos">Cancelar</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- MODAL DE RELEASE -->
+
+
+<!-- MODAL DE DOCUMENTO -->
+
+<!-- MODAL DE EQUIPE DO PROJETO -->

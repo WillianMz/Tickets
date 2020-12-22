@@ -30,17 +30,6 @@ export class CategoriaListComponent implements OnInit {
 
   
   listarCategorias(){
-/*     this.categoriaService.listarTodas().subscribe(
-      (categorias) => {        
-        this.sucesso = categorias['sucesso'];
-        this.mensagem = categorias['mensagem'];        
-        this.categorias = categorias['dados'];  
-      },
-      erro => {
-        this.toastr.error(erro);
-      }
-    ); */
-
     this.categoriaService.obterCategorias().subscribe(
       (categorias) => {
         this.categorias = categorias['dados'];
@@ -51,7 +40,6 @@ export class CategoriaListComponent implements OnInit {
         console.log(this.sucesso);
       }
     )
-
   }
 
 }

@@ -25,7 +25,7 @@
                     </thead>
 
                     <tbody>
-                        <tr *ngFor="let catg of categorias  | paginate: { itemsPerPage: [itensPorPagina], currentPage: paginaAtual }; let i = index"a>
+                        <tr *ngFor="let catg of categorias  | paginate: { itemsPerPage: [itensPorPagina], currentPage: paginaAtual }; let i = index">
                             <td>{{catg.id}}</td>
                             <td><strong>{{catg.nome}}</strong></td>
                             <td>

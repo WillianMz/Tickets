@@ -74,7 +74,6 @@ export class CategoriaFormComponent implements OnInit, AfterContentChecked {
         params => this.categoriaService.getById(+params.get('id'))
       )).subscribe(
         (dados: any) => {
-          //console.log(dados);
           this.categoria = dados['dados'];
           this.categoriaForm.patchValue(dados['dados']);
         },
