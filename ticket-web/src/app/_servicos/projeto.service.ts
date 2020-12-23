@@ -25,7 +25,7 @@ export class ProjetoService extends BaseService{
   }
 
   createProjeto(projeto: Projeto): Observable<Projeto>{
-    let response = this.http.post(this.urlAPIv1 + 'Projetos/Adicionar', projeto, this.ObterHeaderJson()).pipe(
+    let response = this.http.post(this.urlAPIv1 + 'Projetos/Novo', projeto, this.ObterHeaderJson()).pipe(
       map(this.extractDados),
       catchError(this.serviceError)
     );
@@ -34,7 +34,7 @@ export class ProjetoService extends BaseService{
   }
 
   updateProjeto(projeto: Projeto): Observable<Projeto>{
-    let response = this.http.put(this.urlAPIv1 + 'Projetos/Adicionar', projeto, this.ObterHeaderJson()).pipe(
+    let response = this.http.put(this.urlAPIv1 + 'Projetos/Editar', projeto, this.ObterHeaderJson()).pipe(
       map(this.extractDados),
       catchError(this.serviceError)
     );

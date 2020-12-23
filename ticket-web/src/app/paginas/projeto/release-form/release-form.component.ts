@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-release-form',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReleaseFormComponent implements OnInit {
 
+  titulo: string;
+
   constructor() { }
 
+  @Input() id: number;
+
   ngOnInit(): void {
+    this.titulo = 'Nova release'
   }
 
 }

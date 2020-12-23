@@ -1,3 +1,5 @@
+<app-navbar></app-navbar>
+
 <div class="container">
 
     <div class="row">
@@ -54,7 +56,7 @@
                             <br>
                             <h3>Releases</h3>
                             <div>
-                                <button class="btn btn-success btn-sm mt-3">Nova release</button>
+                                <button type="button" class="btn btn-success btn-sm mt-3" (click)="openModal(release)">Nova release</button>
                             </div>
                             <br>
                         
@@ -79,7 +81,7 @@
                                             <td>{{rel.dataCriacao}}</td>
                                             <td>{{rel.dataLiberacao}}</td>
                                             <td>
-                                                <button class="btn text-primary" [routerLink]="[rel.id, 'editar']">
+                                                <button type="button" class="btn text-primary" (click)="openModal(release)">
                                                     <i class="far fa-edit"></i>
                                                 </button>
                                             </td>
@@ -155,7 +157,7 @@
                 
                                     <tbody *ngIf="equipes?.length">
                                         <tr *ngFor="let eq of equipes |  paginate: { itemsPerPage: [itensPorPagina], currentPage: paginaAtual }; let i = index">
-                                            <td>{{eq.nomeUsuario}}</td>
+                                            <td>{{eq.usuario}}</td>
                                             <td>{{eq.gerente}}</td>
                                         </tr>
                                     </tbody>             
@@ -175,7 +177,7 @@
 
             <!-- GRUPO DE BOTOES (SALVAR/CANCELAR) -->
             <div class="btn-group">
-                <button class="btn btn-primary btn-lg mt-3" type="submit" >Salvar</button>
+                <button class="btn btn-primary btn-lg mt-3" [disabled]="habilitarBotaoSalvar || projetoForm.invalid" type="submit" >Salvar</button>
                 <button class="btn btn-danger btn-lg mt-3" routerLink="/projetos">Cancelar</button>
             </div>
 
@@ -186,6 +188,19 @@
 </div>
 
 <!-- MODAL DE RELEASE -->
+<ng-template #release>
+
+    <!-- <div class="modal-header">
+        <h4 class="modal-title pull-left">RELEASE</h4>
+    </div>
+    <div class="modal-body">
+        this is release
+    </div>
+ -->
+
+    <app-release-form id=""></app-release-form>
+
+</ng-template>
 
 
 <!-- MODAL DE DOCUMENTO -->

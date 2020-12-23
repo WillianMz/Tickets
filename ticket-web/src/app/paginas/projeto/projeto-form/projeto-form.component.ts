@@ -1,6 +1,7 @@
-import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs/operators';
 import { Documento } from 'src/app/_modelos/documento';
@@ -34,6 +35,8 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   itensPorPagina = 4;
   paginaAtual = 1;
 
+  modalRef: BsModalRef;
+
   /**
    *
    */
@@ -42,7 +45,8 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     private router: Router,
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
-    private projetoService: ProjetoService
+    private projetoService: ProjetoService,
+    private modalService: BsModalService
   ) {}
 
   ngAfterContentChecked(): void{
@@ -55,7 +59,14 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     this.carregarProjeto();
   }
 
+
+  openModal(template: TemplateRef<any>){
+    this.modalRef = this.modalService.show(template);
+  }
+
+
   //Metodos privados
+ 
   private configTituloDaPagina(){
     if(this.acaoAtual == 'novo'){
       this.titulo = 'Novo projeto';
@@ -90,7 +101,13 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
         params => this.projetoService.getById(+params.get('id'))
       )).subscribe(
         (result: any) => {
+          console.log(result);
           this.projeto =  result['dados'];
+          console.log(this.projeto);
+          this.releases = this.projeto['releases'];
+          console.log(this.releases);
+          this.documentos = this.projeto['documentos'];
+          this.equipes = this.projeto['equipe']
           this.projetoForm.patchValue(this.projeto);
         },
         (error) => {
@@ -137,11 +154,25 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     const projeto: Projeto = Object.assign(new Projeto(), this.projetoForm.value);
     projeto.id = parseInt(this.route.snapshot.paramMap.get('id'));
 
+    console.log(projeto);
+
     this.projetoService.updateProjeto(projeto).subscribe(
       (result) => {
+        console.log(projeto);
         this.sucesso = result['sucesso'];
         this.mensagem = result['mensagem'];
         this.errosDoServidor = result['dados'];
+
+        console.log(this.sucesso);
+        console.log(this.mensagem);
+        console.log(this.errosDoServidor);
+
+        if(this.sucesso == true){
+          this.processarSucesso();
+        }
+      },
+      (error) => {
+        this.processarFalha(error);
       }
     )
   }

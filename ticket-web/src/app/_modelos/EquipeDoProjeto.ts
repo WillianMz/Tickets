@@ -1,7 +1,7 @@
 export class EquipeProjeto {
     projetoId: number;
     usuarioId: number;
-    nomeUsuario: string;
+    usuario: string;
     nomeProjeto: string;
     gerente: boolean;
     
