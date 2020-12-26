@@ -44,8 +44,9 @@
 
             </div>
 
-            <div>
+            <hr>
 
+            <div>
                 <!-- TABS -->
                 <tabset>
 
@@ -53,10 +54,8 @@
                     <tab heading="Releases">
 
                         <div class="container">
-                            <br>
-                            <h3>Releases</h3>
                             <div>
-                                <button type="button" class="btn btn-success btn-sm mt-3" (click)="openModal(release)">Nova release</button>
+                                <button type="button" class="btn btn-success btn-sm mt-3" routerLink="release/novo">Nova release</button>
                             </div>
                             <br>
                         
@@ -81,9 +80,14 @@
                                             <td>{{rel.dataCriacao}}</td>
                                             <td>{{rel.dataLiberacao}}</td>
                                             <td>
-                                                <button type="button" class="btn text-primary" (click)="openModal(release)">
-                                                    <i class="far fa-edit"></i>
-                                                </button>
+                                                <div class="btn-group" role="group" aria-labelledby="BotoesDeAcao">
+                                                    <button class="btn btn-outline-warning" [routerLink]="['/release/',rel.id,'editar']">
+                                                        <i class="far fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
                                             </td>
                                             
                                         </tr>                                        
@@ -102,10 +106,8 @@
                     <!-- TAB Documentos -->
                     <tab heading="Documentos">
                         <div class="container">
-                            <br>
-                            <h3>Documentos</h3>
                             <div>
-                                <button class="btn btn-success btn-sm mt-3">Novo documento</button>
+                                <button type="button" class="btn btn-success btn-sm mt-3">Novo documento</button>
                             </div>
                             <br>
 
@@ -125,6 +127,12 @@
                                                 <button class="btn text-primary" [routerLink]="[doc.id, 'editar']">
                                                     <i class="far fa-edit"></i>
                                                 </button>
+                                                <button class="btn text-danger">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                                <button class="btn text-primary">
+                                                    <i class="far fa-folder-open"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>             
@@ -141,10 +149,8 @@
                     <!-- TAB Equipe -->
                     <tab heading="Equipe">
                         <div class="container">
-                            <br>
-                            <h3>Equipe</h3>
                             <div>
-                                <button class="btn btn-success btn-sm mt-3">Novo membro de equipe</button>
+                                <button type="button" class="btn btn-success btn-sm mt-3">Adicionar membro na equipe</button>
                             </div>
                             <br>
 
@@ -153,12 +159,21 @@
                                     <thead class="thead-light">
                                         <th>Nome</th>
                                         <th>Gerente</th>
+                                        <th></th>
                                     </thead>
                 
                                     <tbody *ngIf="equipes?.length">
                                         <tr *ngFor="let eq of equipes |  paginate: { itemsPerPage: [itensPorPagina], currentPage: paginaAtual }; let i = index">
                                             <td>{{eq.usuario}}</td>
                                             <td>{{eq.gerente}}</td>
+                                            <td>
+                                                <button class="btn text-primary">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+                                                <button class="btn text-danger">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </tbody>             
                                 </table>
@@ -186,23 +201,3 @@
     </div>
 
 </div>
-
-<!-- MODAL DE RELEASE -->
-<ng-template #release>
-
-    <!-- <div class="modal-header">
-        <h4 class="modal-title pull-left">RELEASE</h4>
-    </div>
-    <div class="modal-body">
-        this is release
-    </div>
- -->
-
-    <app-release-form id=""></app-release-form>
-
-</ng-template>
-
-
-<!-- MODAL DE DOCUMENTO -->
-
-<!-- MODAL DE EQUIPE DO PROJETO -->

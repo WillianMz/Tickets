@@ -78,12 +78,12 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   }
 
   private configAcaoAtual(){
-    if(this.route.snapshot.url[0].path === 'novo'){
-      this.acaoAtual = 'novo';
-    }
-    else{
-      this.acaoAtual = 'editar';
-    }
+      if(this.route.snapshot.url[0].path === 'novo'){
+        this.acaoAtual = 'novo';
+      }
+      else{
+        this.acaoAtual = 'editar';
+      }
   }
 
   private validarFormulario(){

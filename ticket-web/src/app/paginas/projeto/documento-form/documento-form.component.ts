@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentoFormComponent implements OnInit {
 
+  titulo: string;
+  file: File;
+
   constructor() { }
 
   ngOnInit(): void {

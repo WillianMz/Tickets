@@ -19,28 +19,35 @@
 
             <div class="table-responsive" *ngIf="projetos?.length">
                 <table class="table table-hover table-bordered table-sm">
-                    <thead class="thead-light">
-                        <td>Id</td>
-                        <td>Projeto</td>
-                        <td>Opções</td>
+                    <thead class="thead-light col-md-12">
+                        <th class="col-md-1">Id</th>
+                        <th class="col-md-7">Projeto</th>
+                        <th class="col-md-4">Opções</th>
                     </thead>
 
                     <tbody>
                         <tr *ngFor="let proj of projetos">
                             <td>{{proj.id}}</td>
-                            <td>{{proj.nome}}
+                            <td>
+                                <strong>{{proj.nome}}</strong>
                                 <br>
-                                <strong>{{proj.descricao}}</strong>
+                                <small>{{proj.descricao}}</small>
                             </td>
                             <td>
-                                <button class="btn text-primary" [routerLink]="[proj.id,'editar']">
-                                    <i class="far fa-edit"></i>
-                                </button>
-
-                                <button class="btn btn-primary">Ver</button>
-                                <button class="btn btn-primary">Nova release</button>
-                                <button class="btn btn-primary">Novo documento</button>                              
-                                <button class="btn btn-primary">Equipe</button>                              
+                                <div class="btn-group" role="group" aria-labelledby="BotoesDeAcao">
+                                    <button class="btn btn-outline-warning" [routerLink]="[proj.id,'editar']">
+                                        <i class="far fa-edit"></i>
+                                        Editar  
+                                    </button>
+                                    <button class="btn btn-outline-info">
+                                        <i class="fas fa-plus"></i>
+                                        Release
+                                    </button>
+                                    <button class="btn btn-outline-primary">
+                                        <i class="fas fa-plus"></i>
+                                        Documento
+                                    </button>    
+                                </div>                                                
                             </td>
                         </tr>
                     </tbody>

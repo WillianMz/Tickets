@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Projeto } from '../_modelos/projeto';
+import { Release } from '../_modelos/release';
 import { BaseService } from './base.service';
 
 
