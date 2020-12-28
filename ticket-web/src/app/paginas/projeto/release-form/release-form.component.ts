@@ -1,6 +1,7 @@
 import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { release } from 'process';
 import { Release } from 'src/app/_modelos/release';
 import { RetornoAPI } from 'src/app/_modelos/retornoAPI';
 import { ReleaseService } from 'src/app/_servicos/release.service';
@@ -22,6 +23,10 @@ export class ReleaseFormComponent implements OnInit, AfterContentChecked {
   dados: any[];
   release: Release = new Release();
 
+  //recebe a release para editar
+  @Input() acao: string;
+  @Input() objRelease: Release;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -37,6 +42,7 @@ export class ReleaseFormComponent implements OnInit, AfterContentChecked {
   ngOnInit(): void {
     this.configAcaoAtual();
     this.validarFormulario();
+    this.carregarRelease();
   }
 
   private configTituloPagina(){
@@ -49,10 +55,17 @@ export class ReleaseFormComponent implements OnInit, AfterContentChecked {
   }
 
   private configAcaoAtual(){
-    if(this.route.snapshot.url[1].path === 'novo'){
+    /* if(this.route.snapshot.url[1].path === 'novo'){
       this.acaoAtual = 'novo';
     }
     else{
+      this.acaoAtual = 'editar';
+    } */
+
+    if(this.acao == 'novo'){
+      this.acaoAtual = 'novo';
+    }
+    else if(this.acao == 'editar'){
       this.acaoAtual = 'editar';
     }
   }
@@ -65,6 +78,17 @@ export class ReleaseFormComponent implements OnInit, AfterContentChecked {
       dataLiberacao: [null, [Validators.required]]
     });
   }
+
+  //carregar release
+  //teste
+  private carregarRelease(){
+    if(this.acaoAtual == 'editar'){
+      this.release = this.objRelease[0];
+      console.log(this.release);
+      this.releaseForm.patchValue(this.release);
+    }
+  }
+
 
   submitForm(){
     this.habilitarBotaoSalvar = true;
@@ -80,9 +104,10 @@ export class ReleaseFormComponent implements OnInit, AfterContentChecked {
 
   private novaRelease(){
     const rel: Release = Object.assign(new Release(), this.releaseForm.value);
-    rel.projetoId = 6;
-    rel.usuarioId = 1;
-    console.log(rel.nome);
+    rel.projetoId = parseInt(this.route.snapshot.paramMap.get('id'));
+    //rel.projetoId = this.idProjeto;
+    rel.usuarioId = 1;  
+    console.log(rel.projetoId);
 
     this.releaseService.newRelease(rel).subscribe(
       (result) => {
@@ -104,12 +129,17 @@ export class ReleaseFormComponent implements OnInit, AfterContentChecked {
   }
 
   private editarRelease(){
-    const rel: Release = Object.assign(new Release(), this.releaseForm.value);
-    rel.projetoId = 6;
-    rel.usuarioId = 1;
-    console.log(rel.nome);
+    //const rel: Release = Object.assign(new Release(), this.releaseForm.value);
+    
+    //rel.projetoId = this.idProjeto; */
+    //const rel = this.objRelease;
+    var rel = this.objRelease;
+    rel.projetoId = parseInt(this.route.snapshot.paramMap.get('id'));
+    rel.usuarioId = 1;  
+    console.log(this.objRelease);
+    console.log('Rel: ' + rel );
 
-    this.releaseService.newRelease(rel).subscribe(
+    this.releaseService.updateRelease(rel).subscribe(
       (result) => {
         this.sucesso =  result['sucesso'];
         this.mensagem = result['mensagem'];

@@ -5,6 +5,7 @@ export class Release {
     versao: string;
     dataCriacao: string;
     dataLiberacao: string;
+    usuario: string;
     usuarioId: number;
     projetoId: number;
 }

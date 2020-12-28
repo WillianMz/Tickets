@@ -24,7 +24,7 @@ export class ReleaseService extends BaseService {
   }
 
   updateRelease(release: Release): Observable<Release>{
-    let response = this.http.put(this.urlAPIv1 + 'Projetos/Release/Editar', release, this.ObterHeaderJson()).pipe(
+    let response = this.http.put(this.urlAPIv1 + 'Projeto/Release/Editar', release, this.ObterHeaderJson()).pipe(
       map(this.extractDados),
       catchError(this.serviceError)
     );
