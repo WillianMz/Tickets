@@ -9,6 +9,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 
 import { HomeModule } from './paginas/home/home.module';
@@ -31,7 +32,8 @@ import { SharedModule } from './shared/shared.module';
     AlertModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    ModalModule.forRoot(),    
+    ModalModule.forRoot(),
+    BsDropdownModule.forRoot(),  
     ReactiveFormsModule,
     FormsModule,
 

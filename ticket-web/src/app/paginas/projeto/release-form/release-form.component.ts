@@ -134,10 +134,25 @@ export class ReleaseFormComponent implements OnInit, AfterContentChecked {
     //rel.projetoId = this.idProjeto; */
     //const rel = this.objRelease;
     var rel = this.objRelease;
-    rel.projetoId = parseInt(this.route.snapshot.paramMap.get('id'));
+    //rel.projetoId = parseInt(this.route.snapshot.paramMap.get('id'));
     rel.usuarioId = 1;  
     console.log(this.objRelease);
     console.log('Rel: ' + rel );
+
+    /* 
+      "nome": "teste",
+      "descricao": "teste",
+      "versao": "teste",
+      "projetoId": 10,
+      "usuarioId": 1,
+      "dataLiberacao": "2020-12-30",
+      "id": 46
+    */
+    /* const rel: Release = Object.assign(new Release(), this.releaseForm.value);
+    rel.projetoId = parseInt(this.route.snapshot.paramMap.get('id'));
+    rel.id = this.objRelease.id;
+    rel.usuarioId = 1;  
+    console.log(rel.projetoId); */
 
     this.releaseService.updateRelease(rel).subscribe(
       (result) => {

@@ -44,6 +44,12 @@
 
             </div>
 
+            <!-- GRUPO DE BOTOES (SALVAR/CANCELAR) -->
+            <div class="btn-group">
+                <button class="btn btn-primary btn-lg mt-3" [disabled]="habilitarBotaoSalvar || projetoForm.invalid" type="submit" >Salvar</button>
+                <button class="btn btn-danger btn-lg mt-3" routerLink="/projetos">Cancelar</button>
+            </div>
+
             <hr>
 
             <div>
@@ -62,6 +68,7 @@
                                 <table class="table table-hover table-bordered table-sm">
                                     <thead class="thead-light">
                                         <th>Id</th>
+                                        <th>Nome</th>
                                         <th>Descrição</th>
                                         <th>Versão</th>
                                         <th>Usuário</th>
@@ -73,6 +80,7 @@
                                     <tbody *ngIf="releases?.length">
                                         <tr *ngFor="let rel of releases ">
                                             <td>{{rel.id}}</td>
+                                            <td>{{rel.nome}}</td>
                                             <td>{{rel.descricao}}</td>
                                             <td>{{rel.versao}}</td>
                                             <td>{{rel.usuario}}</td>
@@ -212,10 +220,10 @@
             </div>
 
             <!-- GRUPO DE BOTOES (SALVAR/CANCELAR) -->
-            <div class="btn-group">
+            <!-- <div class="btn-group">
                 <button class="btn btn-primary btn-lg mt-3" [disabled]="habilitarBotaoSalvar || projetoForm.invalid" type="submit" >Salvar</button>
                 <button class="btn btn-danger btn-lg mt-3" routerLink="/projetos">Cancelar</button>
-            </div>
+            </div> -->
 
         </form>
 

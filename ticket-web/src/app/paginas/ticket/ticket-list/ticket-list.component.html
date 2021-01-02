@@ -8,35 +8,74 @@
         </div>
     </div>
 
+    <!-- CABEÇALHO DO FORMULARIO -->
+    <div class="form-row">
+        <div class="col-md-3">
+            <div class="form-group">
+                
+                <input type="text" class="form-control" id="nome" placeholder="Pesquisar tickets">               
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="btn-group">
+        <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseExample" role="button" 
+            aria-expanded="false" aria-controls="collapseExample">Filtros de pesquisa</a>
+        <a class="btn btn-outline-success" routerLink='novo'><i class="fa fa-plus"></i> Novo</a>        
+    </div>
+
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
-            <p>
+           <!--  <p>
                 <a class="btn btn-outline-success" routerLink='novo'>
                     <i class="fa fa-plus-square"></i>
                      Novo
                 </a>
             </p>
+            -->
+            <hr>
 
-            <div class="table-responsive">
+            <div class="table">
                 <table class="table table-hover table-bordered table-sm">
                     <thead class="thead-light">
-                        <td>Id</td>
-                        <td>Projeto</td>
-                        <td>Opções</td>
+                        <th>Id</th>                        
+                        <th>Categoria</th>
+                        <th>Título</th>
+                        <th>Status</th>
+                        <th>Prioridade</th>
+                        <th>Criador</th>
+                        <th>Opções</th>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>TESTE</td>
-                            <td>NOME TESTEasdfasdfasdf
-                                <br>
-                                <strong>descricao teste alkdjfalksdjf alksdjf alksdj flaksdj flkasj dflkajsdflkajs dflkajs dflkjasdf</strong>
-                            </td>
+                        <tr *ngFor="let ticket of tickets">
+                            <td>{{ticket.id}}</td>
+                            <td>{{ticket.categoria}}</td>
+                            <td>{{ticket.titulo}}</td>
+                            <td>{{ticket.statusAtual}}</td>
+                            <td>{{ticket.prioridade}}</td>
+                            <td>{{ticket.criador}}</td>
                             <td>
-                                <button class="btn text-primary"><i class="far fa-edit"></i></button>
-                                <button class="btn text-primary"><i class="far fa-edit"></i></button>
-                                <button class="btn text-primary"><i class="far fa-edit"></i></button>
-                                <button class="btn text-primary"><i class="far fa-edit"></i></button>                              
+                                <div class="btn-group" dropdown>
+                                    <button class="btn btn-primary dropdown-toggle" dropdownToggle="button">Ações</button>
+                                    <ul class="dropdown-menu" id="dropdown-basic" *dropdownMenu role="menu" aria-labelledby="botoesDeAcaoBasico">
+                                        <li><a class="dropdown-item" [routerLink]="[1,'editar']">Ver detalhes</a></li>
+                                        <li><a class="dropdown-item" [routerLink]="[1,'editar']">Editar</a></li>
+                                        <li><a class="dropdown-item" [routerLink]="[1,'editar']">Adicionar Nota</a></li>
+                                        <li><a class="dropdown-item" [routerLink]="[1,'editar']">Anexar Arquivo</a></li>
+                                        <li class="divider dropdown-divider"></li>
+                                        <li><a class="dropdown-item" [routerLink]="[1,'editar']">Finalizar</a></li>
+                                        <li><a class="dropdown-item" [routerLink]="[1,'editar']">Cancelar</a></li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -47,7 +86,7 @@
                     
                 </div>
 
-                <div class="alert alert-warning" role="alert">
+                <div class="alert alert-warning" role="alert" *ngIf="!tickets?.length">
                     <strong>Atenção!</strong> Nenhum ticket encontrado.
                 </div>
 

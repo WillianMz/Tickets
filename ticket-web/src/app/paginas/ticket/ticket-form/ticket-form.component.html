@@ -1,1 +1,111 @@
-<p>ticket-form works!</p>
+<app-navbar></app-navbar>
+
+<div class="container">
+
+    <div class="row">
+        <div class="px-3 py-3 pt-md-3 pb-md-3">
+            <h3>Abertura de ticket</h3>
+        </div>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="form-group">
+
+        <tabset>
+            <!-- tab principal -->
+            <tab heading="Ticket">
+
+                <div class="container">
+                    <form>
+                        <div class="form-row">
+        
+                            <div class="col-md-6">
+                                <label for="">Título</label>
+                                <input type="text" class="form-control" placeholder="Nome do ticket. Exemplos: Bug, novo recurso, etc.">
+                            </div>
+                        
+                        </div>
+        
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label for="">Descrição</label>
+                                <textarea type="text" class="form-control" placeholder="Descrição completa"></textarea>
+                            </div>                    
+                        </div>
+        
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="">Projeto</label>
+                                <select class="form-control" id="Projeto">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+        
+                            <div class="col-md-6">
+                                <label for="">Categoria</label>
+                                <select class="form-control" id="Categoria">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <label for="">Status</label>
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                    <option>Aberto</option>
+                                    <option>Em Andamento</option>
+                                    <option>Concluído</option>
+                                    <option>Cancelado</option>                                    
+                                </select>
+                            </div>
+        
+                            <div class="col-md-4">
+                                <label for="">Prioridade</label>
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                    <option>Baixa</option>
+                                    <option>Normal</option>
+                                    <option>Alta</option>
+                                    <option>Urgente</option>                                    
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <hr>
+                    
+                    <!-- GRUPO DE BOTOES (SALVAR/CANCELAR) -->
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-sm " type="submit" >Salvar</button>
+                        <button class="btn btn-danger btn-sm " routerLink="/projetos">Cancelar</button>
+                    </div>
+
+                </div>
+
+            </tab>
+
+            <!-- tab notas -->
+            <tab heading="Notas">
+
+            </tab>
+
+            <!-- tab anexos -->
+            <tab heading="Anexos">
+
+            </tab>
+        </tabset>
+
+       
+
+    </div>
+
+</div>
