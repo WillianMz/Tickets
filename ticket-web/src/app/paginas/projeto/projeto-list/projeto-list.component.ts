@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Projeto } from 'src/app/_modelos/projeto';
 import { ProjetoService } from 'src/app/_servicos/projeto.service';
 
@@ -17,7 +18,8 @@ export class ProjetoListComponent implements OnInit {
 
   constructor(
     private projetoService: ProjetoService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -30,11 +32,18 @@ export class ProjetoListComponent implements OnInit {
 
 
   listar(){
+    this.spinner.show();
+
     this.projetoService.obterProjetos().subscribe(
       (result) => {
         this.projetos = result['dados'];
         console.log(this.projetos);
-      }
+        this.spinner.hide();
+      },
+      (error) => {
+        console.log('erro: ' + error);
+        this.spinner.hide();
+      } 
     )
   }
 

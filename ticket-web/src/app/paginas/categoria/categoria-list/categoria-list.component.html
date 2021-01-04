@@ -1,4 +1,14 @@
 <app-navbar></app-navbar>
+
+<ngx-spinner 
+    bdColor = "rgba(0, 0, 0, 0.8)" 
+    size = "medium" 
+    color = "#fff" 
+    type = "pacman" 
+    [fullScreen] = "true">
+    <p style="color: white" > Aguarde... </p>
+</ngx-spinner>
+
 <div class="container">
     
     <div class="row">
@@ -7,23 +17,30 @@
         </div>
     </div>
 
+    <div class="btn-group">
+        <a class="btn btn-outline-primary" role="button" (click)="listarCategorias()">Atualizar</a>
+        <a class="btn btn-outline-success" routerLink='novo'><i class="fa fa-plus"></i> Novo</a>    
+    </div>
+</div>
+    
+<br>
+
+<div class="container">
+
+    <hr>
+
     <div class="row">
 
         <div class="col-md-12">
-
-            <p>
-                <a class="btn btn-outline-success" routerLink='novo'><i class="fa fa-plus-square"></i> Adicionar</a>
-
-            </p>
-
-            <div class="table" *ngIf="categorias?.length">
+            
+            <div class="table" *ngIf="categorias?.length">              
                 <table class="table table-hover table-bordered table-sm">
                     <thead class="thead-light">
                         <th>Id</th>
                         <th>Descrição</th>
                         <th></th>
                     </thead>
-
+        
                     <tbody>
                         <tr *ngFor="let catg of categorias  | paginate: { itemsPerPage: [itensPorPagina], currentPage: paginaAtual }; let i = index">
                             <td>{{catg.id}}</td>
@@ -39,24 +56,18 @@
                         </tr>
                     </tbody>             
                 </table>
-
+        
                 <!-- paginacao -->
                 <div class="text-right">
                     <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
                 </div>
-                
+        
             </div>
-
-            <!-- paginacao -->
-           <!--  <div class="text-right">
-                <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-            </div> -->
-
+        
             <div class="alert alert-warning" role="alert" *ngIf="!categorias?.length">
                 <strong>Atenção!</strong> Nenhuma categoria encontrada.
             </div>
 
         </div>
-
     </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Categoria } from 'src/app/_modelos/categoria';
 import { CategoriaService } from 'src/app/_servicos/categoria.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -18,10 +19,12 @@ export class CategoriaListComponent implements OnInit {
   //diz ao componente que inicialize da pagina 1
   paginaAtual = 1;
   itensPorPagina = 8;
+  mostrarSpin: boolean = false;
 
   constructor(
     private categoriaService: CategoriaService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -30,15 +33,26 @@ export class CategoriaListComponent implements OnInit {
 
   
   listarCategorias(){
+    this.mostrarSpin = true;
+    this.spinner.show();
+    
     this.categoriaService.obterCategorias().subscribe(
       (categorias) => {
         this.categorias = categorias['dados'];
         this.sucesso = categorias['sucesso'];
         this.mensagem = categorias['mensagem'];
+
+        this.mostrarSpin = false;
+        this.spinner.hide();
+
         console.log(categorias);
         console.log(this.mensagem);
         console.log(this.sucesso);
-      }
+      },
+      (error) => {
+        console.log('erro: ' + error);
+        this.spinner.hide();
+      }      
     )
   }
 

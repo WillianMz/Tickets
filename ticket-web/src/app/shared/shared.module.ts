@@ -21,7 +21,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ],
   exports:[
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    NotFoundComponent
   ]
 })
 export class SharedModule { }

@@ -8,7 +8,7 @@ const routes: Routes = [
   { path:'tickets', loadChildren:'./paginas/ticket/ticket.module#TicketModule'},
   { path:'projetos', loadChildren:'./paginas/projeto/projeto.module#ProjetoModule'},
   { path:'usuarios', loadChildren:'./paginas/usuario/usuario.module#UsuarioModule'},  
-  //{ path:'404', component: NotFoundComponent },
+  { path:'404', component: NotFoundComponent },
   { path: '**', redirectTo: '404'},
   { path: '#', redirectTo: 'home'}
 ];

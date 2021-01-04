@@ -1,5 +1,14 @@
 <app-navbar></app-navbar>
 
+<ngx-spinner 
+    bdColor = "rgba(0, 0, 0, 0.8)" 
+    size = "medium" 
+    color = "#fff" 
+    type = "pacman" 
+    [fullScreen] = "true">
+    <p style="color: white" > Aguarde... </p>
+</ngx-spinner>
+
 <div class="container">
     
     <div class="row">
@@ -21,8 +30,8 @@
 
 
     <div class="btn-group">
-        <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseExample" role="button" 
-            aria-expanded="false" aria-controls="collapseExample">Filtros de pesquisa</a>
+        <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Filtros de pesquisa</a>
+        <a class="btn btn-outline-primary" role="button" (click)="listarTickets()">Atualizar</a>
         <a class="btn btn-outline-success" routerLink='novo'><i class="fa fa-plus"></i> Novo</a>        
     </div>
 
@@ -32,18 +41,18 @@
         </div>
     </div>
 
+</div>
+
+<br>
+
+<div class="container">
+
     <div class="row">
         <div class="col-md-12">
-           <!--  <p>
-                <a class="btn btn-outline-success" routerLink='novo'>
-                    <i class="fa fa-plus-square"></i>
-                     Novo
-                </a>
-            </p>
-            -->
+            
             <hr>
 
-            <div class="table">
+            <div class="table" *ngIf="tickets?.length">
                 <table class="table table-hover table-bordered table-sm">
                     <thead class="thead-light">
                         <th>Id</th>                        
@@ -60,8 +69,16 @@
                             <td>{{ticket.id}}</td>
                             <td>{{ticket.categoria}}</td>
                             <td>{{ticket.titulo}}</td>
-                            <td>{{ticket.statusAtual}}</td>
-                            <td>{{ticket.prioridade}}</td>
+                            <td [class.text-danger]="ticket.statusAtual == 'Aberto'" [class.text-primary]="ticket.statusAtual == 'EmAndamento'"
+                                [class.text-success]="ticket.statusAtual == 'Concluido'" [class.text-warning]="ticket.statusAtual == 'Cancelado'">
+                                
+                                {{ticket.statusAtual}}
+                            </td>
+                            <td [class.text-success]="ticket.prioridade == 'Baixo'" [class.text-primary]="ticket.prioridade == 'Normal'"
+                                [class.text-warning]="ticket.prioridade == 'Alto'" [class.text-danger]="ticket.prioridade == 'Urgente'">
+                                
+                                {{ticket.prioridade}}
+                            </td>
                             <td>{{ticket.criador}}</td>
                             <td>
                                 <div class="btn-group" dropdown>
@@ -82,14 +99,11 @@
                 </table>
 
                 <!--PAGINACAO-->
-                <div class="text-right">
-                    
-                </div>
+                            
+            </div>
 
-                <div class="alert alert-warning" role="alert" *ngIf="!tickets?.length">
-                    <strong>Atenção!</strong> Nenhum ticket encontrado.
-                </div>
-
+            <div class="alert alert-warning" role="alert" *ngIf="!tickets?.length">
+                <strong>Atenção!</strong> Nenhum ticket encontrado.
             </div>
 
         </div>

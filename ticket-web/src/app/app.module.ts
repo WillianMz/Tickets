@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,9 @@ import { UsuarioModule } from './paginas/usuario/usuario.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
 
+//spinner
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import { SharedModule } from './shared/shared.module';
     BsDropdownModule.forRoot(),  
     ReactiveFormsModule,
     FormsModule,
-
+    
+    NgxSpinnerModule,
     //carregamento de modulos
     SharedModule,
     HomeModule,
@@ -48,6 +52,7 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

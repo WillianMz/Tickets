@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProjetoRoutingModule } from './projeto-routing.module';
@@ -11,6 +11,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ReleaseFormComponent } from './release-form/release-form.component';
 import { DocumentoFormComponent } from './documento-form/documento-form.component';
 import { EquipeFormComponent } from './equipe-form/equipe-form.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -28,7 +29,9 @@ import { EquipeFormComponent } from './equipe-form/equipe-form.component';
     FormsModule,
     NgxPaginationModule,
     TabsModule.forRoot(),
-    ProjetoRoutingModule
-  ]
+    ProjetoRoutingModule,
+    NgxSpinnerModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProjetoModule { }
