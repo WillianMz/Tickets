@@ -1,66 +1,98 @@
 <app-navbar></app-navbar>
 
+<ngx-spinner 
+    bdColor = "rgba(0, 0, 0, 0.8)" 
+    size = "medium" 
+    color = "#fff" 
+    type = "pacman" 
+    [fullScreen] = "true">
+    <p style="color: white" > Aguarde... </p>
+</ngx-spinner>
+
 <div class="container">
 
     <div class="row">
+        <div class="px-3 py-3 pt-md-3 pb-md-3">
+            <button type="button" class="btn btn-outline-info btn-sm mt-3" role="button" routerLink="/projetos">
+                <i class="fas fa-long-arrow-alt-left"></i> VOLTAR
+            </button>
+        </div>        
+    </div>
+
+    <div class="row">           
         <div class="px-3 py-3 pt-md-3 pb-md-3">
             <h3>{{titulo}}</h3>
         </div>
     </div>
 
+    <hr>
+
     <!-- DIV DO FORM -->
     <div>
-
         <form [formGroup]="projetoForm" (submit)="submitForm()">
-
-            <!-- CABEÇALHO DO FORMULARIO -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        
-                        <label>Nome</label>
-                        <input type="text" class="form-control" id="nome" formControlName="nome" placeholder="Nome do projeto">
-                        
-                        <div class="text-danger" *ngIf="projetoForm.get('nome').invalid && projetoForm.get('nome').touched">
-                            <div *ngIf="projetoForm.get('nome').errors.required">Nome do projeto é obrigatório</div>
-                            <div *ngIf="projetoForm.get('nome').errors.minlenght">Nome deve ter mais que 3 caracteres</div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <div class="form-group">
-
-                        <label>Descrição</label>
-                        <input type="text" class="form-control" id="descricao" formControlName="descricao" placeholder="Descrição do projeto">
-                        
-                        <div class="text-danger" *ngIf="projetoForm.get('descricao').invalid && projetoForm.get('descricao').touched">
-                            <div *ngIf="projetoForm.get('descricao').errors.required">Informe uma descrição para o projeto</div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- GRUPO DE BOTOES (SALVAR/CANCELAR) -->
-            <div class="btn-group">
-                <button class="btn btn-primary btn-lg mt-3" [disabled]="habilitarBotaoSalvar || projetoForm.invalid" type="submit" >Salvar</button>
-                <button class="btn btn-danger btn-lg mt-3" routerLink="/projetos">Cancelar</button>
-            </div>
-
-            <hr>
-
+            
             <div>
                 <!-- TABS -->
                 <tabset>
+
+                    <!-- TAB PRINCIPAL -->
+                    <tab heading="Projeto">
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-warning btn-sm mt-3" role="button" (click)="habilitarEdicaoForm()">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+
+                        <br>
+
+                        <!-- CABEÇALHO DO FORMULARIO -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    
+                                    <label>Nome</label>
+                                    <input type="text" class="form-control" [readonly]="formSomenteLeitura" id="nome" formControlName="nome" placeholder="Nome do projeto">
+                                    
+                                    <div class="text-danger" *ngIf="projetoForm.get('nome').invalid && projetoForm.get('nome').touched">
+                                        <div *ngIf="projetoForm.get('nome').errors.required">Nome do projeto é obrigatório</div>
+                                        <div *ngIf="projetoForm.get('nome').errors.minlenght">Nome deve ter mais que 3 caracteres</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+
+                                    <label>Descrição</label>
+                                    <input type="text" class="form-control" [readonly]="formSomenteLeitura" id="descricao" formControlName="descricao" placeholder="Descrição do projeto">
+                                    
+                                    <div class="text-danger" *ngIf="projetoForm.get('descricao').invalid && projetoForm.get('descricao').touched">
+                                        <div *ngIf="projetoForm.get('descricao').errors.required">Informe uma descrição para o projeto</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- GRUPO DE BOTOES (SALVAR/CANCELAR) -->
+                        <div class="btn-group">
+                            <button class="btn btn-primary btn-sm mt-3" [disabled]="habilitarBotaoSalvar || projetoForm.invalid" type="submit" >Salvar</button>
+                            <button class="btn btn-danger btn-sm mt-3" routerLink="/projetos">Cancelar</button>
+                        </div>
+                    </tab>
+
                     <!-- TAB Releases -->
                     <tab heading="Releases">
 
                         <div class="container">
                             <div>
                                 <button type="button" class="btn btn-success btn-sm mt-3" (click)="openModal(novaRelease)">Nova release</button>
+                                <button type="button" class="btn btn-success btn-sm mt-3" (click)="carregarReleases()">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
                             </div>
                             <br>
                         

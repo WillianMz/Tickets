@@ -32,4 +32,11 @@ export class ReleaseService extends BaseService {
     return response;
   }
 
+  filtrarReleasePorProjeto(idProjeto: number): Observable<Release>{
+    return this.http.get<Release[]>(this.urlAPIv1 + 'Projeto/Release/Listar?ProjetoId=' + idProjeto, this.ObterHeaderJson()).pipe(
+      map(this.extractDados),
+      catchError(this.serviceError)
+    );
+  }
+
 }

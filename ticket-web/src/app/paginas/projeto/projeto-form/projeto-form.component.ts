@@ -2,6 +2,7 @@ import { AfterContentChecked, Component, OnInit, TemplateRef } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs/operators';
 import { Documento } from 'src/app/_modelos/documento';
@@ -10,6 +11,7 @@ import { Projeto } from 'src/app/_modelos/projeto';
 import { Release } from 'src/app/_modelos/release';
 import { RetornoAPI } from 'src/app/_modelos/retornoAPI';
 import { ProjetoService } from 'src/app/_servicos/projeto.service';
+import { ReleaseService } from 'src/app/_servicos/release.service';
 
 @Component({
   selector: 'app-projeto-form',
@@ -23,6 +25,7 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   acaoAtual: string;
   errosDoServidor: RetornoAPI[];
   habilitarBotaoSalvar: boolean = false;
+  formSomenteLeitura: boolean = true;
   mensagem: string;
   sucesso: boolean;
   dados: any[];
@@ -46,7 +49,9 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
     private projetoService: ProjetoService,
-    private modalService: BsModalService
+    private releaseService: ReleaseService,
+    private modalService: BsModalService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngAfterContentChecked(): void{
@@ -73,7 +78,7 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     }
     else{
       const nomeProjeto = this.projeto.nome || '';
-      this.titulo = 'Editando projeto ' + nomeProjeto;
+      this.titulo = nomeProjeto;
     }
   }
 
@@ -94,6 +99,15 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     })
   }
 
+  habilitarEdicaoForm(){
+    if(this.formSomenteLeitura == false){
+      this.formSomenteLeitura = true;
+    }
+    else{
+      this.formSomenteLeitura = false;
+    }
+  }
+
   //carregar objeto projeto no form
   private carregarProjeto(){
     if(this.acaoAtual == 'editar'){
@@ -103,11 +117,9 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
         (result: any) => {
           console.log(result);
           this.projeto =  result['dados'];
-          console.log(this.projeto);
           this.releases = this.projeto['releases'];
-          console.log(this.releases);
           this.documentos = this.projeto['documentos'];
-          this.equipes = this.projeto['equipe']
+          this.equipes = this.projeto['equipe'];
           this.projetoForm.patchValue(this.projeto);
         },
         (error) => {
@@ -177,11 +189,31 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     )
   }
 
+  carregarReleases(){
+    this.spinner.show()
+
+    var idProjeto = parseInt(this.route.snapshot.paramMap.get('id'));
+
+    this.releaseService.filtrarReleasePorProjeto(idProjeto).subscribe(
+      (resultado) => {
+        this.releases = resultado['dados'];
+        console.log(this.releases);
+        this.spinner.hide();
+      },
+      (error) => {
+        this.processarFalha(error);
+        this.spinner.hide();
+      }
+    )
+  }
+
   private processarSucesso(){
     this.toastr.success('Dados salvos com sucesso!','Projeto');
     this.projetoForm.reset();
     this.errosDoServidor = [];
-    this.router.navigate(['/projetos']);
+    //this.router.navigate(['/projetos']);
+    this.carregarProjeto();
+    this.habilitarEdicaoForm();
   }
 
   private processarFalha(falha: any){
