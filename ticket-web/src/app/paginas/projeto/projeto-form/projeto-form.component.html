@@ -39,9 +39,9 @@
                     <tab heading="Projeto">
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-outline-warning btn-sm mt-3" role="button" (click)="habilitarEdicaoForm()">
+                            <!-- <button type="button" class="btn btn-outline-warning btn-sm mt-3" role="button" (click)="habilitarEdicao()">
                                 <i class="fas fa-cog"></i>
-                            </button>
+                            </button> -->
                         </div>
 
                         <br>
@@ -79,8 +79,8 @@
 
                         <!-- GRUPO DE BOTOES (SALVAR/CANCELAR) -->
                         <div class="btn-group">
-                            <button class="btn btn-primary btn-sm mt-3" [disabled]="habilitarBotaoSalvar || projetoForm.invalid" type="submit" >Salvar</button>
-                            <button class="btn btn-danger btn-sm mt-3" routerLink="/projetos">Cancelar</button>
+                            <button class="btn btn-primary btn-sm mt-3" [disabled]="habilitarBotaoSalvar || projetoForm.invalid || formSomenteLeitura" type="submit" >Salvar</button>
+                            <button class="btn btn-danger btn-sm mt-3" [disabled]="formSomenteLeitura" routerLink="/projetos">Cancelar</button>
                         </div>
                     </tab>
 

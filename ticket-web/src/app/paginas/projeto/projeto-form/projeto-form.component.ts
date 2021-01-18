@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { AfterContentChecked, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -55,11 +56,11 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   ) {}
 
   ngAfterContentChecked(): void{
-    this.configTituloDaPagina();
+    this.configurarForm();
   }
 
   ngOnInit(): void {
-    this.configAcaoAtual();
+    this.configurarAcaoAtual();
     this.validarFormulario();
     this.carregarProjeto();
   }
@@ -68,64 +69,13 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   openModal(template: TemplateRef<any>){
     this.modalRef = this.modalService.show(template);
   }
-
-
-  //Metodos privados
- 
-  private configTituloDaPagina(){
-    if(this.acaoAtual == 'novo'){
-      this.titulo = 'Novo projeto';
-    }
-    else{
-      const nomeProjeto = this.projeto.nome || '';
-      this.titulo = nomeProjeto;
-    }
-  }
-
-  private configAcaoAtual(){
-      if(this.route.snapshot.url[0].path === 'novo'){
-        this.acaoAtual = 'novo';
-      }
-      else{
-        this.acaoAtual = 'editar';
-      }
-  }
-
-  private validarFormulario(){
-    this.projetoForm = this.formBuilder.group({
-      id:[null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
-      descricao: [null, [Validators.required, Validators.maxLength(100)]]
-    })
-  }
-
-  habilitarEdicaoForm(){
+  
+  habilitarEdicao(){
     if(this.formSomenteLeitura == false){
       this.formSomenteLeitura = true;
     }
     else{
       this.formSomenteLeitura = false;
-    }
-  }
-
-  //carregar objeto projeto no form
-  private carregarProjeto(){
-    if(this.acaoAtual == 'editar'){
-      this.route.paramMap.pipe(switchMap(
-        params => this.projetoService.getById(+params.get('id'))
-      )).subscribe(
-        (result: any) => {
-          console.log(result);
-          this.projeto =  result['dados'];
-          this.releases = this.projeto['releases'];
-          this.documentos = this.projeto['documentos'];
-          this.equipes = this.projeto['equipe'];
-          this.projetoForm.patchValue(this.projeto);
-        },
-        (error) => {
-          this.processarFalha(error);
-        }
-      )
     }
   }
 
@@ -140,6 +90,91 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
+  carregarReleases(){
+    this.spinner.show()
+
+    var idProjeto = parseInt(this.route.snapshot.paramMap.get('id'));
+
+    this.releaseService.filtrarReleasePorProjeto(idProjeto).subscribe(
+      (resultado) => {
+        this.releases = resultado['dados'];
+        this.spinner.hide();
+      },
+      (error) => {
+        this.processarFalha(error);
+        this.spinner.hide();
+      }
+    )
+  }
+
+  carregarEquipe(){
+
+  }
+
+  carregarDocumentos(){
+
+  }
+
+  //Metodos privados
+  private configurarAcaoAtual(){
+    if(this.route.snapshot.url[0].path === 'novo'){
+      this.acaoAtual = 'novo';
+    }
+
+    if(this.route.snapshot.url[0].path === 'editar'){
+      this.acaoAtual = 'editar';
+    }
+
+    if(this.route.snapshot.url[0].path === 'detalhes'){
+      this.acaoAtual = 'visualizar';
+    }
+  }
+ 
+  private configurarForm(){
+    const nomeProjeto = this.projeto.nome;
+
+    if(this.acaoAtual == 'novo'){
+      this.titulo = 'Novo projeto';
+      this.formSomenteLeitura = false;
+    }
+
+    if(this.acaoAtual == 'editar'){ 
+      this.titulo = nomeProjeto;
+      this.formSomenteLeitura = false;
+    }
+
+    if(this.acaoAtual == 'visualizar'){
+      this.titulo = nomeProjeto;
+      this.formSomenteLeitura = true;
+    }
+  } 
+
+  private validarFormulario(){
+    this.projetoForm = this.formBuilder.group({
+      id:[null],
+      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
+      descricao: [null, [Validators.required, Validators.maxLength(100)]]
+    })
+  }
+
+  //carregar objeto projeto no form
+  private carregarProjeto(){
+    if(this.acaoAtual == 'editar'){
+      this.route.paramMap.pipe(switchMap(params => this.projetoService.getById(+params.get('id')))).subscribe(
+        (result: any) => {
+          this.projeto =  result['dados'];
+          this.releases = this.projeto['releases'];
+          this.documentos = this.projeto['documentos'];
+          this.equipes = this.projeto['equipe'];
+          this.projetoForm.patchValue(this.projeto);
+        },
+        (error) => {
+          this.processarFalha(error);
+        }
+      )
+    }
+  }
+
   private novoProjeto(){
     const proj: Projeto = Object.assign(new Projeto(), this.projetoForm.value);
 
@@ -148,9 +183,6 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
         this.sucesso = result['sucesso'];
         this.mensagem = result['mensagem'];
         this.errosDoServidor = result['dados'];
-        console.log(this.sucesso);
-        console.log(this.mensagem);
-        console.log(this.errosDoServidor);
 
         if(this.sucesso == true){
           this.processarSucesso();
@@ -166,18 +198,12 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     const projeto: Projeto = Object.assign(new Projeto(), this.projetoForm.value);
     projeto.id = parseInt(this.route.snapshot.paramMap.get('id'));
 
-    console.log(projeto);
-
     this.projetoService.updateProjeto(projeto).subscribe(
       (result) => {
         console.log(projeto);
         this.sucesso = result['sucesso'];
         this.mensagem = result['mensagem'];
         this.errosDoServidor = result['dados'];
-
-        console.log(this.sucesso);
-        console.log(this.mensagem);
-        console.log(this.errosDoServidor);
 
         if(this.sucesso == true){
           this.processarSucesso();
@@ -189,31 +215,13 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     )
   }
 
-  carregarReleases(){
-    this.spinner.show()
-
-    var idProjeto = parseInt(this.route.snapshot.paramMap.get('id'));
-
-    this.releaseService.filtrarReleasePorProjeto(idProjeto).subscribe(
-      (resultado) => {
-        this.releases = resultado['dados'];
-        console.log(this.releases);
-        this.spinner.hide();
-      },
-      (error) => {
-        this.processarFalha(error);
-        this.spinner.hide();
-      }
-    )
-  }
-
   private processarSucesso(){
     this.toastr.success('Dados salvos com sucesso!','Projeto');
     this.projetoForm.reset();
     this.errosDoServidor = [];
     //this.router.navigate(['/projetos']);
     this.carregarProjeto();
-    this.habilitarEdicaoForm();
+    //this.habilitarEdicao();
   }
 
   private processarFalha(falha: any){
