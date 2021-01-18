@@ -7,6 +7,11 @@ import { ReleaseFormComponent } from './release-form/release-form.component';
 const routes: Routes = [
   { path: '', component: ProjetoListComponent },
   { path: 'novo', component: ProjetoFormComponent },
+  { path: 'editar/:id', component: ProjetoFormComponent },
+  { path: 'detalhes/:id', component: ProjetoFormComponent },
+
+
+
   { path: ':id/editar', component: ProjetoFormComponent },
   { path: ':id/detalhes' , component: ProjetoFormComponent },
   { path: ':id/editar/release/novo', component: ReleaseFormComponent },

@@ -36,6 +36,8 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   documentos: Documento[];
   equipes: EquipeProjeto[];
 
+  urlAtual: string;
+
   itensPorPagina = 4;
   paginaAtual = 1;
 
@@ -60,9 +62,13 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnInit(): void {
+
+    this.urlAtual = this.route.snapshot.url[0].path
+
     this.configurarAcaoAtual();
     this.validarFormulario();
-    this.carregarProjeto();
+    //this.carregarProjeto();
+    //this.configurarForm();
   }
 
 
@@ -117,21 +123,31 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
 
   //Metodos privados
   private configurarAcaoAtual(){
-    if(this.route.snapshot.url[0].path === 'novo'){
-      this.acaoAtual = 'novo';
-    }
 
-    if(this.route.snapshot.url[0].path === 'editar'){
-      this.acaoAtual = 'editar';
-    }
+    //var url = this.route.snapshot.url[0].path
 
-    if(this.route.snapshot.url[0].path === 'detalhes'){
-      this.acaoAtual = 'visualizar';
+    switch(this.urlAtual){
+      case 'novo':
+        this.acaoAtual = 'editar';
+        console.log(2);
+        break;  
+      case 'editar':
+        this.acaoAtual = 'editar';
+        console.log(2);
+        break;      
+      case 'detalhes':
+        this.acaoAtual = 'visualizar';
+        console.log(3);
+        break;      
+      /* default :
+        this.acaoAtual = 'novo';
+        console.log(1);
+        break; */
     }
   }
  
   private configurarForm(){
-    const nomeProjeto = this.projeto.nome;
+    
 
     if(this.acaoAtual == 'novo'){
       this.titulo = 'Novo projeto';
@@ -139,11 +155,15 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
     }
 
     if(this.acaoAtual == 'editar'){ 
+      this.carregarProjeto();
+      var nomeProjeto = this.projeto.nome;
       this.titulo = nomeProjeto;
-      this.formSomenteLeitura = false;
+      this.formSomenteLeitura = false;      
     }
 
     if(this.acaoAtual == 'visualizar'){
+      this.carregarProjeto();
+      var nomeProjeto = this.projeto.nome;
       this.titulo = nomeProjeto;
       this.formSomenteLeitura = true;
     }
@@ -159,9 +179,10 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
 
   //carregar objeto projeto no form
   private carregarProjeto(){
-    if(this.acaoAtual == 'editar'){
+    if(this.acaoAtual === 'editar' || this.acaoAtual === 'visualizar'){
       this.route.paramMap.pipe(switchMap(params => this.projetoService.getById(+params.get('id')))).subscribe(
         (result: any) => {
+          console.log(result);
           this.projeto =  result['dados'];
           this.releases = this.projeto['releases'];
           this.documentos = this.projeto['documentos'];
