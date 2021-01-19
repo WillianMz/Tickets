@@ -87,68 +87,68 @@
                     <!-- TAB Releases -->
                     <tab heading="Releases">
 
-                        <div class="container">
-                            <div>
-                                <button type="button" class="btn btn-success btn-sm mt-3" (click)="openModal(novaRelease)">Nova release</button>
-                                <button type="button" class="btn btn-success btn-sm mt-3" (click)="carregarReleases()">
-                                    <i class="fas fa-sync-alt"></i>
-                                </button>
-                            </div>
-                            <br>
-                        
-                            <div class="table-responsive" >
-                                <table class="table table-hover table-bordered table-sm">
-                                    <thead class="thead-light">
-                                        <th>Id</th>
-                                        <th>Nome</th>
-                                        <th>Descrição</th>
-                                        <th>Versão</th>
-                                        <th>Usuário</th>
-                                        <th>Data de criação</th>
-                                        <th>Data de Liberação</th>
-                                        <th></th>
-                                    </thead>
-                
-                                    <tbody *ngIf="releases?.length">
-                                        <tr *ngFor="let rel of releases ">
-                                            <td>{{rel.id}}</td>
-                                            <td>{{rel.nome}}</td>
-                                            <td>{{rel.descricao}}</td>
-                                            <td>{{rel.versao}}</td>
-                                            <td>{{rel.usuario}}</td>
-                                            <td>{{rel.dataCriacao}}</td>
-                                            <td>{{rel.dataLiberacao}}</td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-labelledby="BotoesDeAcao">
-                                                    <button class="btn btn-outline-warning" type="button" (click)="openModal(editarRelease)">
-                                                        <i class="far fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-outline-danger">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                            <!-- MODAL PARA EDITAR RELEASE -->
-                                            <ng-template #editarRelease>
-                                                <app-release-form [acao]="['editar']" [objRelease]='[rel]' ></app-release-form>
-                                            </ng-template>
-                                            
-                                        </tr>                                        
-                                    </tbody> 
-                                </table>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-sm mt-3" (click)="openModal(novaRelease)">Nova release</button>
+                            <button type="button" class="btn btn-success btn-sm mt-3" (click)="carregarReleases()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
 
-                                <!-- paginacao -->
-                                <!-- <div class="text-right">
-                                    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-                                </div> -->
-                            
-                            </div>
+                        <br>
+                        
+                        <div class="table-responsive" >
+                            <table class="table table-hover table-bordered table-sm">
+                                <thead class="thead-light">
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Versão</th>
+                                    <th>Usuário</th>
+                                    <th>Data de criação</th>
+                                    <th>Data de Liberação</th>
+                                    <th></th>
+                                </thead>
+            
+                                <tbody *ngIf="releases?.length">
+                                    <tr *ngFor="let rel of releases ">
+                                        <td>{{rel.id}}</td>
+                                        <td>{{rel.nome}}</td>
+                                        <td>{{rel.descricao}}</td>
+                                        <td>{{rel.versao}}</td>
+                                        <td>{{rel.usuario}}</td>
+                                        <td>{{rel.dataCriacao}}</td>
+                                        <td>{{rel.dataLiberacao}}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-labelledby="BotoesDeAcao">
+                                                <button class="btn btn-outline-warning" type="button" (click)="openModal(editarRelease)">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <!-- MODAL PARA EDITAR RELEASE -->
+                                        <ng-template #editarRelease>
+                                            <app-release-form [acao]="['editar']" [objRelease]='[rel]' ></app-release-form>
+                                        </ng-template>
+                                        
+                                    </tr>                                        
+                                </tbody> 
+                            </table>
+
+                            <!-- paginacao -->
+                            <!-- <div class="text-right">
+                                <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                            </div> -->
+                        
+                        </div>
 
                             <div class="alert alert-warning" role="alert" *ngIf="!releases?.length">
                                 Não existem releases para este projeto!
                             </div>
 
-                        </div>
+                        
 
                     </tab>
 

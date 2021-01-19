@@ -1,4 +1,3 @@
-import { stringify } from '@angular/compiler/src/util';
 import { AfterContentChecked, Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -58,17 +57,16 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   ) {}
 
   ngAfterContentChecked(): void{
-    this.configurarForm();
+    this.configTitulo();
   }
 
   ngOnInit(): void {
 
-    this.urlAtual = this.route.snapshot.url[0].path
-
+    this.urlAtual = this.route.snapshot.url[0].path;
     this.configurarAcaoAtual();
     this.validarFormulario();
-    //this.carregarProjeto();
-    //this.configurarForm();
+    this.carregarProjeto();
+    this.configurarForm();
   }
 
 
@@ -77,23 +75,19 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   }
   
   habilitarEdicao(){
-    if(this.formSomenteLeitura == false){
+    if(this.formSomenteLeitura == false)
       this.formSomenteLeitura = true;
-    }
-    else{
+    else
       this.formSomenteLeitura = false;
-    }
   }
 
   submitForm(){
     this.habilitarBotaoSalvar = true;
 
-    if(this.acaoAtual == 'novo'){
+    if(this.acaoAtual == 'novo')
       this.novoProjeto();
-    }
-    else{
+    else
       this.editarProjeto();
-    }
   }
 
   carregarReleases(){
@@ -114,57 +108,52 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   }
 
   carregarEquipe(){
-
+    //nao implementado
   }
 
   carregarDocumentos(){
-
+    //nao implementado
   }
 
   //Metodos privados
   private configurarAcaoAtual(){
 
-    //var url = this.route.snapshot.url[0].path
-
     switch(this.urlAtual){
-      case 'novo':
-        this.acaoAtual = 'editar';
-        console.log(2);
-        break;  
-      case 'editar':
-        this.acaoAtual = 'editar';
-        console.log(2);
-        break;      
-      case 'detalhes':
-        this.acaoAtual = 'visualizar';
-        console.log(3);
-        break;      
-      /* default :
+      case 'novo': {  
         this.acaoAtual = 'novo';
-        console.log(1);
-        break; */
+        break;  
+      }
+      case 'editar': {  
+        this.acaoAtual = 'editar';
+        break;     
+      } 
+      case 'detalhes': {  
+        this.acaoAtual = 'visualizar';
+        break;
+      }
     }
   }
  
-  private configurarForm(){
-    
-
+  private configTitulo(){
     if(this.acaoAtual == 'novo'){
-      this.titulo = 'Novo projeto';
-      this.formSomenteLeitura = false;
+      this.titulo = 'Novo Projeto';
     }
-
-    if(this.acaoAtual == 'editar'){ 
-      this.carregarProjeto();
-      var nomeProjeto = this.projeto.nome;
+    else{
+      const nomeProjeto = this.projeto.nome || '';
       this.titulo = nomeProjeto;
+    }
+  }
+
+  private configurarForm(){
+    if(this.acaoAtual == 'novo'){
       this.formSomenteLeitura = false;      
     }
 
+    if(this.acaoAtual == 'editar'){
+      this.formSomenteLeitura = false;   
+    }
+
     if(this.acaoAtual == 'visualizar'){
-      this.carregarProjeto();
-      var nomeProjeto = this.projeto.nome;
-      this.titulo = nomeProjeto;
       this.formSomenteLeitura = true;
     }
   } 
@@ -237,12 +226,23 @@ export class ProjetoFormComponent implements OnInit, AfterContentChecked {
   }
 
   private processarSucesso(){
-    this.toastr.success('Dados salvos com sucesso!','Projeto');
-    this.projetoForm.reset();
+    switch(this.acaoAtual){
+      case 'novo': {
+        this.toastr.success('Dados salvos com sucesso!','Projeto');
+        this.projetoForm.reset();
+        //navegar para a rota de listagem de projetos
+        this.router.navigate(['/projetos']);
+        break;
+      }   
+      case 'editar': {
+        this.toastr.success('Dados salvos com sucesso!','Projeto');
+        this.carregarProjeto();
+        this.habilitarEdicao();
+        break;
+      }  
+    }
+
     this.errosDoServidor = [];
-    //this.router.navigate(['/projetos']);
-    this.carregarProjeto();
-    //this.habilitarEdicao();
   }
 
   private processarFalha(falha: any){
