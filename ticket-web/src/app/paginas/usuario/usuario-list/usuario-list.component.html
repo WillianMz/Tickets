@@ -1,5 +1,67 @@
 <app-navbar></app-navbar>
 
+<ngx-spinner 
+    bdColor = "rgba(0, 0, 0, 0.8)" 
+    size = "medium" 
+    color = "#fff" 
+    type = "pacman" 
+    [fullScreen] = "true">
+    <p style="color: white" > Aguarde... </p>
+</ngx-spinner>
+
+
 <div class="container">
-    <p>usuario-list works!</p>
+    
+    <div class="row">
+        <div class="px py-3 pt-md-3 pb-md-3">
+            <h3>Usuários</h3>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <a class="btn btn-outline-success" routerLink='novo'><i class="fa fa-plus"></i> Novo</a>
+        <a class="btn btn-outline-primary" role="button">Atualizar</a>        
+    </div>
+
+</div>
+
+<br>
+
+<div class="container">
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table">
+
+                <table class="table table-hover table-bordered table-sm">
+                    <thead class="thead-light col-md-12">
+                        <th class="col-md-1">Código</th>
+                        <th class="col-md-4">Nome</th>
+                        <th class="col-md-4">Email</th>
+                        <th class="col-md-2">Tipo</th>
+                        <th class="col-md-">Opções</th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>201f</td>
+                            <td>Willian</td>
+                            <td>willianmazzorana@hotmail.com</td>
+                            <td>Adm.Sistema</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-outline-secondary">Visualizar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
 </div>

@@ -86,17 +86,19 @@
 
                     <!-- TAB Releases -->
                     <tab heading="Releases">
-
+                    
                         <div class="btn-group">
                             <button type="button" class="btn btn-success btn-sm mt-3" (click)="openModal(novaRelease)">Nova release</button>
                             <button type="button" class="btn btn-success btn-sm mt-3" (click)="carregarReleases()">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
+                            <button class="btn btn-danger btn-sm mt-3" routerLink="/release/novo">Nova</button>
                         </div>
 
                         <br>
-                        
-                        <div class="table-responsive" >
+                        <br>
+                            
+                        <div class="table-responsive" *ngIf="releases?.length">
                             <table class="table table-hover table-bordered table-sm">
                                 <thead class="thead-light">
                                     <th>Id</th>
@@ -109,10 +111,10 @@
                                     <th></th>
                                 </thead>
             
-                                <tbody *ngIf="releases?.length">
+                                <tbody>
                                     <tr *ngFor="let rel of releases ">
                                         <td>{{rel.id}}</td>
-                                        <td>{{rel.nome}}</td>
+                                        <td>{{rel.nome}}</td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                                         <td>{{rel.descricao}}</td>
                                         <td>{{rel.versao}}</td>
                                         <td>{{rel.usuario}}</td>
@@ -126,6 +128,8 @@
                                                 <button class="btn btn-outline-danger">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
+
+                                                <button class="btn btn-danger btn-sm mt-3" routerLink="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ">Nova</button>
                                             </div>
                                         </td>
                                         <!-- MODAL PARA EDITAR RELEASE -->
@@ -141,126 +145,120 @@
                             <!-- <div class="text-right">
                                 <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
                             </div> -->
-                        
                         </div>
-
-                            <div class="alert alert-warning" role="alert" *ngIf="!releases?.length">
-                                Não existem releases para este projeto!
-                            </div>
-
-                        
+    
+                        <div class="alert alert-warning" role="alert" *ngIf="!releases?.length">
+                            Não existem releases para este projeto!
+                        </div>
 
                     </tab>
 
                     <!-- TAB Documentos -->
                     <tab heading="Documentos">
-                        <div class="container">
-                            <div>
-                                <button type="button" class="btn btn-success btn-sm mt-3">Novo documento</button>
-                            </div>
-                            <br>
 
-                            <div class="table-responsive">
-                                <table class="table table-hover table-bordered table-sm">
-                                    <thead class="thead-light">
-                                        <th>Id</th>
-                                        <th>Titulo</th>
-                                        <th></th>
-                                    </thead>
-                
-                                    <tbody *ngIf="documentos?.length">
-                                        <tr *ngFor="let doc of documentos">
-                                            <td>{{doc.id}}</td>
-                                            <td>{{doc.titulo}}</td>
-                                            <td>
-                                                <button class="btn text-primary" [routerLink]="[doc.id, 'editar']">
-                                                    <i class="far fa-edit"></i>
-                                                </button>
-                                                <button class="btn text-danger">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn text-primary">
-                                                    <i class="far fa-folder-open"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody> 
-                                </table>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-sm mt-3">Novo documento</button>
+                            <button type="button" class="btn btn-success btn-sm mt-3">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
 
-                                <!-- paginacao -->
-                                <!-- <div class="text-right">
-                                    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-                                </div> -->
+                        <br>
+                        <br>
 
-                            </div>
+                        <div class="table-responsive" *ngIf="documentos?.length">
+                            <table class="table table-hover table-bordered table-sm">
+                                <thead class="thead-light">
+                                    <th>Id</th>
+                                    <th>Titulo</th>
+                                    <th></th>
+                                </thead>
+            
+                                <tbody>
+                                    <tr *ngFor="let doc of documentos">
+                                        <td>{{doc.id}}</td>
+                                        <td>{{doc.titulo}}</td>
+                                        <td>
+                                            <button class="btn text-primary" [routerLink]="[doc.id, 'editar']">
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                            <button class="btn text-danger">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                            <button class="btn text-primary">
+                                                <i class="far fa-folder-open"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody> 
+                            </table>
 
-                            <div class="alert alert-warning" role="alert" *ngIf="!documentos?.length">
-                                Não existem documentos para este projeto!
-                            </div>
+                            <!-- paginacao -->
+                            <!-- <div class="text-right">
+                                <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                            </div> -->
 
                         </div>
+
+                        <div class="alert alert-warning" role="alert" *ngIf="!documentos?.length">
+                            Não existem documentos para este projeto!
+                        </div>
+
                     </tab>
 
                     <!-- TAB Equipe -->
                     <tab heading="Equipe">
-                        <div class="container">
-                            <div>
-                                <button type="button" class="btn btn-success btn-sm mt-3">Adicionar membro na equipe</button>
-                            </div>
-                            <br>
 
-                            <div class="table-responsive">
-                                <table class="table table-hover table-bordered table-sm">
-                                    <thead class="thead-light">
-                                        <th>Nome</th>
-                                        <th>Gerente</th>
-                                        <th></th>
-                                    </thead>
-                
-                                    <tbody *ngIf="equipes?.length">
-                                        <tr *ngFor="let eq of equipes">
-                                            <td>{{eq.usuario}}</td>
-                                            <td>{{eq.gerente}}</td>
-                                            <td>
-                                                <button class="btn text-primary">
-                                                    <i class="far fa-edit"></i>
-                                                </button>
-                                                <button class="btn text-danger">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>             
-                                </table>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-sm mt-3">Adicionar membro na equipe</button>
+                            <button type="button" class="btn btn-success btn-sm mt-3">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
 
-                                <!-- paginacao -->
-                                <!-- <div class="text-right">
-                                    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
-                                </div> -->
+                        <br>
+                        <br>
 
-                            </div>
+                        <div class="table-responsive" *ngIf="equipes?.length">
+                            <table class="table table-hover table-bordered table-sm">
+                                <thead class="thead-light">
+                                    <th>Nome</th>
+                                    <th>Gerente</th>
+                                    <th></th>
+                                </thead>
+            
+                                <tbody>
+                                    <tr *ngFor="let eq of equipes">
+                                        <td>{{eq.usuario}}</td>
+                                        <td>{{eq.gerente}}</td>
+                                        <td>
+                                            <button class="btn text-primary">
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                            <button class="btn text-danger">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>             
+                            </table>
 
-                            <div class="alert alert-warning" role="alert" *ngIf="!equipes?.length">
-                                Não há membros de equipe para este projeto!
-                            </div>
+                            <!-- paginacao -->
+                            <!-- <div class="text-right">
+                                <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                            </div> -->
 
                         </div>
+
+                        <div class="alert alert-warning" role="alert" *ngIf="!equipes?.length">
+                            Não há membros de equipe para este projeto!
+                        </div>
+
                     </tab>
-
                 </tabset>
-
             </div>
-
-            <!-- GRUPO DE BOTOES (SALVAR/CANCELAR) -->
-            <!-- <div class="btn-group">
-                <button class="btn btn-primary btn-lg mt-3" [disabled]="habilitarBotaoSalvar || projetoForm.invalid" type="submit" >Salvar</button>
-                <button class="btn btn-danger btn-lg mt-3" routerLink="/projetos">Cancelar</button>
-            </div> -->
-
         </form>
-
     </div>
-
 </div>
 
 <!-- MODAIS -->
@@ -269,10 +267,6 @@
 <ng-template #novaRelease>
     <app-release-form [acao]="['novo']" ></app-release-form>
 </ng-template>
-
-<!-- <ng-template #editarRelease>
-    <app-release-form [acao]="['editar']" ></app-release-form>
-</ng-template> -->
 
 <!-- DOCUMENTO -->
 <ng-template #documento>

@@ -10,10 +10,8 @@ const routes: Routes = [
   { path: 'editar/:id', component: ProjetoFormComponent },
   { path: 'detalhes/:id', component: ProjetoFormComponent },
 
-
-
-  { path: ':id/editar', component: ProjetoFormComponent },
-  { path: ':id/detalhes' , component: ProjetoFormComponent },
+  { path: 'release/novo', component:ReleaseFormComponent},
+  
   { path: ':id/editar/release/novo', component: ReleaseFormComponent },
   { path: 'release/novo', component: ReleaseFormComponent },
   { path: 'release/:id/editar', component: ReleaseFormComponent }
